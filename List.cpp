@@ -22,6 +22,19 @@ void List:: sortStudents()
     list_.sort();
 }
 
+void List:: eraseStudent(int index)
+{
+    std::list<Student>::iterator i;
+    for(i=list_.begin(); i!=list_.end(); i++)
+    {
+        if(index == i->getIndex())
+        {
+            list_.erase(i);
+            break;
+        }
+    }
+}
+
 std ::ostream& operator << (std::ostream& Strm, List& l)
 {
     std::list<Student>::iterator i;
