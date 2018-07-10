@@ -7,16 +7,16 @@
 
 class List
 {
+    std:: list<Student> list_; 
 
 public:
 
-    std:: list<Student> list_; ///trzeba shermetyzować
     List() {}
     ~List() {}
     void addStudent();
     void eraseStudent(int index);
     void sortStudents();
-
+    std::list<Student> getList() const;
 };
 
 std ::ostream& operator << (std::ostream& Strm, List& l);

@@ -35,10 +35,16 @@ void List:: eraseStudent(int index)
     }
 }
 
+std::list<Student> List:: getList() const
+{
+    return list_;
+}
+
 std ::ostream& operator << (std::ostream& Strm, List& l)
 {
+    std::list<Student> auxiliaryList = l.getList();
     std::list<Student>::iterator i;
-    for(i=l.list_.begin(); i!=l.list_.end(); i++)
+    for(i = auxiliaryList.begin(); i != auxiliaryList.end(); i++)
     {
         Strm<<*i;
     }

@@ -16,7 +16,7 @@ int main()
     std::cout<<students;
 
     int index;
-    std::cout<<"podaj numer";
+    std::cout<<"podaj numer: ";
     std::cin>>index;
     students.eraseStudent(index);
     std::cout<<students;
