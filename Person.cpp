@@ -12,6 +12,12 @@ bool Person::peselValidation(const std::array<int, 11> p)
     return false;
 }
 
+void Person::getPesel()
+{
+    for (int i = 0; i < 11; i++)
+        cout << this->PESEL[i];
+}
+
 void Person::setPESEL(const std::array<int, 11> pesel)
 {
     this->PESEL = pesel;
@@ -121,6 +127,15 @@ void Person::setAdress(const string& adress)
     }
     else
         this->adress = adress;
+}
+
+void Person::showPerson()
+{
+    cout << "First name: " << this->firstName << endl;
+    cout << "Last name: " << this->lastName << endl;
+    cout << "PESEL: " << this->getPesel << endl;
+    cout << "Gender: " << this->gender << endl;
+    cout << "Adress: " << this->adress << endl;
 }
 
 

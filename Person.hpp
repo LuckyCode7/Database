@@ -17,6 +17,7 @@ private:
     string gender;
     string adress;
     bool peselValidation(const std::array<int, 11>);
+    void getPesel();
 public:
     virtual ~Person() = 0;
     void setPESEL(const std::array<int, 11>);
@@ -24,4 +25,5 @@ public:
     void setFirstName(const string&);
     void setLastName(const string&);
     void setAdress(const string&);
+    virtual void showPerson();
 };
