@@ -12,8 +12,6 @@ bool Person::peselValidation(const std::array<int, 11> p)
     return false;
 }
 
-Person::~Person() {}
-
 void Person::setPESEL(const std::array<int, 11> pesel)
 {
     this->PESEL = pesel;
@@ -104,18 +102,25 @@ void Person::setLastName(const string & LastName_)
     this->lastName[0] = toupper(this->lastName[0]);
 }
 
-void Person::setAdress()
+void Person::setAdress(const string& adress)
 {
-    string city;
-    string street;
-    cout << "Set city: ";
-    cin >> city;
-    cout << "Set street: ";
-    cin >> street;
-    city[0] = toupper(city[0]);
-    street[0] = toupper(street[0]);
-    this->adress = city + " ," + street + " street";
-    cout << this->adress;
+    std::size_t found = adress.find(",");
+    if (found == std::string::npos)
+    {
+        cout << "Incorrect address" << endl;
+        cout << "Sample adress format: Warsaw, 7 Happy street\nEnter data:" << endl;
+        string city;
+        string street;
+        cout << "Set city: ";
+        cin >> city;
+        cout << "Set street: ";
+        cin >> street;
+        city[0] = toupper(city[0]);
+        street[0] = toupper(street[0]);
+        this->adress = city + " ," + street + " street";
+    }
+    else
+        this->adress = adress;
 }
 
 

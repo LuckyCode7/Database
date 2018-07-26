@@ -18,11 +18,10 @@ private:
     string adress;
     bool peselValidation(const std::array<int, 11>);
 public:
-    Person() {}
-    virtual ~Person();
+    virtual ~Person() = 0;
     void setPESEL(const std::array<int, 11>);
     void setGender(const string&);
     void setFirstName(const string&);
     void setLastName(const string&);
-    void setAdress();
+    void setAdress(const string&);
 };
