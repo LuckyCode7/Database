@@ -11,7 +11,6 @@ void List:: addStudent()
     std::cin>>lname;
     std::cout<<"Index number: ";
     std::cin>>index;
-
     Student s(fname,lname,index);
     list_.push_back(s);
 

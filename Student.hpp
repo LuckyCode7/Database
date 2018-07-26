@@ -18,7 +18,6 @@ public:
     int getIndex() const;
     bool operator < (const Student& s);
 };
-
 std ::ostream& operator << (std::ostream& Strm, const Student& s);
 
 #endif

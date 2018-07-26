@@ -8,7 +8,6 @@
 class List
 {
     std:: list<Student> list_; 
-
 public:
 
     List() {}

@@ -20,7 +20,6 @@ int main()
     int choice=0;
     int index=0;
     menu();
-
     do
     {
         std::cout<<"(to show menu chose 5)"<<std::endl;

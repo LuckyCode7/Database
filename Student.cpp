@@ -33,6 +33,5 @@ std::ostream& operator << (std::ostream& Strm, const Student& s)
     Strm<<"\t";
     Strm<<s.getIndex();
     Strm<<std::endl;
-
     return Strm;
 }
