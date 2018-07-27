@@ -13,6 +13,18 @@ bool Person::peselValidation(const std::array<int, 11> p)
     return false;
 }
 
+bool Person::checkName(const string & name)
+{
+    if (name.size() < 3)
+        return false;
+    for (int i = 0; i < name.size(); i++)
+    {
+        if (isdigit(name[i]))
+            return false;
+    }
+    return true;
+}
+
 void Person::showPesel()
 {
     for (int i = 0; i < 11; i++)
@@ -115,8 +127,23 @@ void Person::setGender(const string& gender_)
 
 void Person::setFirstName(const string& firstName_)
 {
-    this->firstName = firstName_;
-    this->firstName[0] = toupper(this->firstName[0]);
+    try
+    {
+        this->firstName = firstName_;
+        if (!checkName(firstName_))
+            throw InvalidFirstName();
+    }
+
+    catch (InvalidFirstName& exception)
+    {
+        cout << exception.what() << endl;
+        while (!checkName(this->firstName))
+        {
+            cout << "Set correct first name: ";
+            cin >> this->firstName;
+        }
+        this->firstName[0] = toupper(this->firstName[0]);
+    }
 }
 
 void Person::setLastName(const string & LastName_)
