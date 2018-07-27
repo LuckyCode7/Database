@@ -25,3 +25,11 @@ public:
     {}
 };
 
+class InvalidLastName : public std::invalid_argument
+{
+public:
+    InvalidLastName()
+        : invalid_argument("Incorrect length or type of last name !")
+    {}
+};
+
