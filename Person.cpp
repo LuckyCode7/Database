@@ -19,7 +19,7 @@ void Person::showPesel()
         cout << this->PESEL[i];
 }
 
-void Person::setPESEL(const std::array<int, 11> pesel)
+void Person::setPesel(const std::array<int, 11> pesel)
 {
     try
     {
@@ -35,7 +35,7 @@ void Person::setPESEL(const std::array<int, 11> pesel)
 
         while (!peselValidation(this->PESEL))
         {
-            cout << "Set correct PESEL: ";
+            cout << "Set correct PESEL: \a";
             cout << "-----------\b\b\b\b\b\b\b\b\b\b\b";
             for (int i = 0; i < 11; i++)
             {
@@ -95,17 +95,22 @@ void Person::setPESEL(const std::array<int, 11> pesel)
 
 void Person::setGender(const string& gender_)
 {
-    if (gender_ != "man" && gender_ != "woman")
+    try
     {
-        cout << "Incorrect type of gender" << endl;
+        this->gender = gender_;
+        if (gender_ != "man" && gender_ != "woman")
+            throw InvalidGender();
+    }
+
+    catch (InvalidGender& exception)
+    {
+        cout << exception.what() << endl;
         do
         {
-            cout << "Set gender <man/woman> :";
+            cout << "Set  correct gender <man/woman> :\a";
             cin >> this->gender;
         } while (this->gender != "man" && this->gender != "woman");
     }
-    else
-        this->gender = gender_;
 }
 
 void Person::setFirstName(const string& firstName_)
