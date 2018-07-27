@@ -8,3 +8,12 @@ public:
         : invalid_argument("Invalid PESEL !")
     {}
 };
+
+class InvalidGender : public std::invalid_argument
+{
+public:
+    InvalidGender()
+        : invalid_argument("Invalid gender !")
+    {}
+};
+
