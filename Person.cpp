@@ -146,10 +146,27 @@ void Person::setFirstName(const string& firstName_)
     }
 }
 
-void Person::setLastName(const string & LastName_)
+void Person::setLastName(const string & lastName_)
 {
-    this->lastName = LastName_;
-    this->lastName[0] = toupper(this->lastName[0]);
+    {
+        try
+        {
+            this->firstName = lastName_;
+            if (!checkName(lastName_))
+                throw InvalidFirstName();
+        }
+
+        catch (InvalidFirstName& exception)
+        {
+            cout << exception.what() << endl;
+            while (!checkName(this->lastName))
+            {
+                cout << "Set correct first name: ";
+                cin >> this->lastName;
+            }
+            this->firstName[0] = toupper(this->firstName[0]);
+        }
+    }
 }
 
 void Person::setAdress(const string& adress)
