@@ -17,3 +17,11 @@ public:
     {}
 };
 
+class InvalidFirstName : public std::invalid_argument
+{
+public:
+    InvalidFirstName()
+        : invalid_argument("Incorrect length or type of first name !")
+    {}
+};
+
