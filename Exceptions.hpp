@@ -51,3 +51,11 @@ public:
     const char* format() { return "Index must contain 6 numbers. First numern can not be 0"; }
 };
 
+class InvalidSalary : public std::invalid_argument
+{
+public:
+    InvalidSalary()
+        : invalid_argument("Salary can not be negative!")
+    {}
+};
+
