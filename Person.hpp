@@ -37,5 +37,4 @@ public:
     void setLastName(const string&);
     void setAdress(const string&);
     virtual void showPerson();
-    virtual void setIndex(const int&) = 0;
 };
