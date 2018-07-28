@@ -39,7 +39,7 @@ public:
     InvalidAdress()
         : invalid_argument("Incorrect adress format !")
     {}
-    const char* format() { return "Correct adress format: (city), (number) (name of he street)"; }
+    const char* format() { return "Correct adress format: (city), (number) (name of the street)"; }
 };
 
 class InvalidIndex : public std::invalid_argument
