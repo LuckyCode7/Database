@@ -14,7 +14,7 @@ bool Person::checkName(const string & name)
         return false;
     for (int i = 0; i < name.size(); i++)
     {
-        if (isdigit(name[i]))
+        if (!isalpha(name[i]))
             return false;
     }
     return true;
@@ -58,7 +58,6 @@ void Person::setCorrectAdressFormat()
         this->adress[found + 7] = toupper(this->adress[found + 7]);
         break;
     }
-
 }
 
 bool Person::checkGender(const string & gender)
@@ -232,7 +231,7 @@ void Person::setAdress(const string& adress)
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             cin >> number;
-        } while (cin.fail());
+        } while (cin.fail() || number < 0);
         cout << "Set street: ";
         cin >> street;
         city[0] = toupper(city[0]);
