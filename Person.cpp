@@ -33,6 +33,34 @@ bool Person::checkAdress(const string& adress)
             return true;
 }
 
+void Person::setCorrectAdressFormat()
+{
+    int numeralCounter = 0;
+    std::size_t found = adress.find(",");
+    this->adress[0] = toupper(this->adress[0]);
+    for (int i = 0; i < this->adress.size(); i++)
+    {
+        if (isdigit(this->adress[i]))
+            numeralCounter++;
+    }
+    switch (numeralCounter)
+    {
+    case 1:
+        this->adress[found + 4] = toupper(this->adress[found + 4]);
+        break;
+    case 2:
+        this->adress[found + 5] = toupper(this->adress[found + 5]);
+        break;
+    case 3:
+        this->adress[found + 6] = toupper(this->adress[found + 6]);
+        break;
+    case 4:
+        this->adress[found + 7] = toupper(this->adress[found + 7]);
+        break;
+    }
+
+}
+
 bool Person::checkGender(const string & gender)
 {
     if (gender != "man" && gender != "woman")
@@ -54,7 +82,6 @@ void Person::setPesel(const std::array<int, 11> pesel)
         if (!checkPesel(this->PESEL))
             throw InvalidPesel();
     }
-
     catch (InvalidPesel& exception)
     {
         int sign;
@@ -214,7 +241,7 @@ void Person::setAdress(const string& adress)
         this->adress = city + ", " + ss.str() + " " + street + " street";
         cout << this->adress << endl;
     }
-    this->adress[0] = toupper(this->adress[0]);
+    setCorrectAdressFormat();
 }
 
 void Person::showPerson()

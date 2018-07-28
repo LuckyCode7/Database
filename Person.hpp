@@ -12,7 +12,6 @@
 using std::cin;
 using std::cout;
 using std::endl;
-
 using std::string;
 
 class Person
@@ -27,6 +26,7 @@ private:
     bool checkPesel(const std::array<int, 11>);
     bool checkName(const string&);
     bool checkAdress(const string&);
+    void setCorrectAdressFormat();
     bool checkGender(const string&);
     void showPesel();
 public:
