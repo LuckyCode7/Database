@@ -1,23 +1,13 @@
-#ifndef STUDENT_HPP
-#define STUDENT_HPP
+#pragma once
+#include "Person.hpp"
 
-#include <string>
-#include <iostream>
-
-class Student
+class Student : public Person
 {
-    std::string fname_;
-    std::string lname_;
-    int index_;
-
+private:
+    int index;
 public:
-    Student(std::string fname,std::string lname,int index);
-    ~Student() {}
-    std::string getFname() const;
-    std::string getLname() const;
-    int getIndex() const;
-    bool operator < (const Student& s);
-};
-std ::ostream& operator << (std::ostream& Strm, const Student& s);
+    Student(const string& firstName_, const string& lastName_, const std::array<int, 11>& pesel,
+        const string& gender, const string& adress, int index);
+    ~Student();
 
-#endif
+};
