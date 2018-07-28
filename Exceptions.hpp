@@ -42,3 +42,12 @@ public:
     const char* format() { return "Correct adress format: (city), (number) (name of he street)"; }
 };
 
+class InvalidIndex : public std::invalid_argument
+{
+public:
+    InvalidIndex()
+        : invalid_argument("Incorrect type of index !")
+    {}
+    const char* format() { return "Index must contain 6 numbers. First numern can not be 0"; }
+};
+
