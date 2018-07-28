@@ -1,10 +1,6 @@
 #include "Person.hpp"
 #include "Exceptions.hpp"
 
-using std::cin;
-using std::cout;
-using std::endl;
-
 bool Person::checkPesel(const std::array<int, 11> p)
 {
     if ((9 * p[0] + 7 * p[1] + 3 * p[2] + 1 * p[3] + 9 * p[4] + 7 * p[5] + 3 * p[6] + 1 * p[7] + 9 * p[8] + 7 * p[9]) % 10 == p[10])
@@ -159,8 +155,8 @@ void Person::setFirstName(const string& firstName_)
             cout << "Set correct first name: \a";
             cin >> this->firstName;
         }
-        this->firstName[0] = toupper(this->firstName[0]);
     }
+    this->firstName[0] = toupper(this->firstName[0]);
 }
 
 void Person::setLastName(const string & lastName_)
@@ -180,8 +176,8 @@ void Person::setLastName(const string & lastName_)
                 cout << "Set correct first name: \a";
                 cin >> this->lastName;
             }
-            this->lastName[0] = toupper(this->lastName[0]);
         }
+        this->lastName[0] = toupper(this->lastName[0]);
     }
 }
 
@@ -201,7 +197,7 @@ void Person::setAdress(const string& adress)
         std::stringstream ss;
         cout << exception.what() << endl;
         cout << exception.format() << endl;
-        cout << "Set city: ";
+        cout << "Set city: \a";
         cin >> city;
         do
         {
@@ -218,6 +214,7 @@ void Person::setAdress(const string& adress)
         this->adress = city + ", " + ss.str() + " " + street + " street";
         cout << this->adress << endl;
     }
+    this->adress[0] = toupper(this->adress[0]);
 }
 
 void Person::showPerson()
