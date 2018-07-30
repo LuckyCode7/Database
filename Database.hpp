@@ -1,24 +1,11 @@
-#ifndef LIST_HPP
-#define LIST_HPP
+#include "Person.hpp"
 
-#include "Student.hpp"
-#include <list>
-
-
-class List
+class Database
 {
-    std:: list<Student> list_; 
-public:
+    Person person* = &Student;
+    Person person = &Employee;
+    Public:
+    void addToDatabase (Person);
+    base <person*> base;
 
-    List() {}
-    ~List() {}
-    void addStudent();
-    void eraseStudent(int index);
-    void sortStudents();
-    std::list<Student> getList() const;
 };
-
-std ::ostream& operator << (std::ostream& Strm, List& l);
-
-
-#endif
