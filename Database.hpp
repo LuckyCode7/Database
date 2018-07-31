@@ -7,5 +7,7 @@ public:
     ~Database();
     void addToDatabase(Person*);
     void showDatabase();
+    void findLastName(const string&);
+    void findPesel(const std::array<int, 11>&);
 
 };

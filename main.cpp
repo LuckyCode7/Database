@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
     Database database;
-    array<int, 11> pesel1 = { 9,6,0,4,0,1,0,2,4,9,5 };
+    array<int, 11> pesel1 = { 4,4,0,5,1,4,0,1,3,5,9};
     Student student("rafal", "nowak", pesel1, "man", "warszawa, 15 cicha", 123456);
     Person* person1 = &student;
    
@@ -17,7 +17,10 @@ int main()
     database.addToDatabase(person1);
     database.addToDatabase(person2);
 
-    database.showDatabase();
+    //database.showDatabase();
+    //database.findLastName("Nowak");
+    database.findPesel(pesel1);
+
 
     system("PAUSE");
     return 0;
