@@ -2,13 +2,26 @@
 
 std::vector<Person*> data;
 
-Database::Database(){}
+Database::Database() {}
 
-Database::~Database(){}
+Database::~Database() {}
 
 void Database::addToDatabase(Person* person)
 {
-    data.push_back(person);
+    bool acces = true;
+    for (auto x : data)
+    {
+        if (x->getPesel() == person->getPesel())
+        {
+            cout << "Pesel of " << person->getFirstName() << " " << person->getLastName() << " already exists !" << endl;
+            acces = false;
+            break;
+        }
+        else
+            acces = true;
+    }
+    if (acces == true)
+        data.push_back(person);
 }
 
 void Database::showDatabase()
@@ -49,6 +62,24 @@ void Database::findPesel(const std::array<int, 11>& pesel_)
         cout << "There are no people with the given pesel" << endl;
     else
         cout << "Result: found " << peselCounter << " people" << endl;
+}
+
+void Database::sortByLastName()
+{
+    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getLastName() < two->getLastName(); });
+    cout << "Status: sorting completed" << endl;
+}
+
+void Database::sortByPesel()
+{
+    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getPesel() < two->getPesel(); });
+    cout << "Status: sorting completed" << endl;
+}
+
+void Database::sortBySalary()
+{
+    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getSalary() < two->getSalary(); });
+    cout << "Status: sorting completed" << endl;
 }
 
 
