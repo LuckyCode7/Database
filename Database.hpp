@@ -2,10 +2,10 @@
 
 class Database
 {
-    Person person* = &Student;
-    Person person = &Employee;
-    Public:
-    void addToDatabase (Person);
-    base <person*> base;
+public:
+    Database();
+    ~Database();
+    void addToDatabase(Person*);
+    void showDatabase();
 
 };
