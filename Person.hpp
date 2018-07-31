@@ -9,6 +9,7 @@
 #include <limits>
 #include "Exceptions.hpp"
 #include <vector>
+#include <algorithm>
 
 using std::cin;
 using std::cout;
@@ -38,6 +39,8 @@ public:
     void setLastName(const string&);
     void setAdress(const string&);
     string getLastName() const;
+    string getFirstName() const;
     std::array<int, 11> getPesel() const;
+    virtual int getSalary() const = 0;
     virtual void showPerson();
 };

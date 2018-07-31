@@ -58,6 +58,7 @@ void Person::setCorrectAdressFormat()
         this->adress[found + 7] = toupper(this->adress[found + 7]);
         break;
     }
+    this->adress += " street";
 }
 
 bool Person::checkGender(const string & gender)
@@ -238,7 +239,6 @@ void Person::setAdress(const string& adress)
         street[0] = toupper(street[0]);
         ss << number;
         this->adress = city + ", " + ss.str() + " " + street + " street";
-        cout << this->adress << endl;
     }
     setCorrectAdressFormat();
 }
@@ -246,6 +246,11 @@ void Person::setAdress(const string& adress)
 string Person::getLastName() const
 {
     return this->lastName;
+}
+
+string Person::getFirstName() const
+{
+    return this->firstName;
 }
 
 std::array<int, 11> Person::getPesel() const
