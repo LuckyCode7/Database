@@ -12,4 +12,5 @@ public:
     ~Student();
     void setIndex(const int&);
     void showPerson();
+    int getSalary() const;
 };

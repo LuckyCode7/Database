@@ -52,7 +52,12 @@ void Student::showPerson()
 {
     cout << "Status: \tstudent";
     Person::showPerson();
-    cout << "Index: \t\t" << this->index << endl;
+    cout << "Index: \t\t" << this->index << endl << endl;
+}
+
+int Student::getSalary() const
+{
+    return 0; //soooo true
 }
 
 
