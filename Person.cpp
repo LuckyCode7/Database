@@ -243,6 +243,16 @@ void Person::setAdress(const string& adress)
     setCorrectAdressFormat();
 }
 
+string Person::getLastName() const
+{
+    return this->lastName;
+}
+
+std::array<int, 11> Person::getPesel() const
+{
+    return this->PESEL;
+}
+
 void Person::showPerson()
 {
     cout << endl << "First name: \t" << this->firstName << endl;

@@ -8,6 +8,7 @@
 #include <sstream>
 #include <limits>
 #include "Exceptions.hpp"
+#include <vector>
 
 using std::cin;
 using std::cout;
@@ -36,5 +37,7 @@ public:
     void setFirstName(const string&);
     void setLastName(const string&);
     void setAdress(const string&);
+    string getLastName() const;
+    std::array<int, 11> getPesel() const;
     virtual void showPerson();
 };
