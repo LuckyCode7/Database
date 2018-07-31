@@ -11,4 +11,5 @@ public:
     ~Employee();
     void setSalary(const int&);
     void showPerson();
+    int getSalary() const;
 };
