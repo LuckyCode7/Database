@@ -60,4 +60,9 @@ int Student::getSalary() const
     return 0; //soooo true
 }
 
+int Student::getIndex() const
+{
+    return this->index;
+}
+
 

@@ -13,4 +13,5 @@ public:
     void setIndex(const int&);
     void showPerson();
     int getSalary() const;
+    int getIndex() const;
 };
