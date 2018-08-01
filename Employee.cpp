@@ -1,6 +1,6 @@
 #include "Employee.hpp"
 
-Employee::Employee(const string & firstName_, const string & lastName_, const std::array<int, 11>& pesel_,
+Employee::Employee(const string & firstName_, const string & lastName_, const string& pesel_,
     const string & gender_, const string & adress_, const int & salary_)
 {
     this->setFirstName(firstName_);

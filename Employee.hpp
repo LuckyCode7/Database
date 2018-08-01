@@ -6,8 +6,8 @@ class Employee : public Person
 private:
     int salary;
 public:
-    Employee(const string& firstName_, const string& lastName_, const std::array<int, 11>& pesel,
-        const string& gender, const string& adress, const int& salary);
+    Employee(const string& firstName_, const string& lastName_, const string& pesel_,
+        const string& gender_, const string& adress_, const int& salary_);
     ~Employee();
     void setSalary(const int&);
     void showPerson();
