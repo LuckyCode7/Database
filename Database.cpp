@@ -44,10 +44,13 @@ void Database::findLastName(const string& lastName_)
     if (lastNamecounter == 0)
         cout << "There are no people with lastname: " << lastName_ << " in the database" << endl;
     else
-        cout << "Result: found " << lastNamecounter << " people" << endl;
+        if (lastNamecounter > 1)
+            cout << "Result: found " << lastNamecounter << " people" << endl;
+        else
+            cout << "Result: found " << lastNamecounter << " person" << endl;
 }
 
-void Database::findPesel(const std::array<int, 11>& pesel_)
+void Database::findPesel(const string& pesel_)
 {
     int peselCounter = 0;
     for (auto x : data)

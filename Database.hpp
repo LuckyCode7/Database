@@ -8,7 +8,7 @@ public:
     void addToDatabase(Person*);
     void showDatabase();
     void findLastName(const string&);
-    void findPesel(const std::array<int, 11>&);
+    void findPesel(const string&);
     void sortByLastName();
     void sortByPesel();
     void sortBySalary();
