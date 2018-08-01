@@ -192,7 +192,7 @@ void Person::setAdress(const string& adress)
         city[0] = toupper(city[0]);
         street[0] = toupper(street[0]);
         ss << number;
-        this->adress = city + ", " + ss.str() + " " + street + " street";
+        this->adress = city + ", " + ss.str() + " " + street;
     }
     setCorrectAdressFormat();
 }

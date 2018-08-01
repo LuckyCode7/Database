@@ -45,6 +45,7 @@ public:
     string getGender() const;
     string getAdress() const;
     virtual int getSalary() const = 0;
+    virtual void setSalary(const int&) = 0;
     virtual int getIndex() const = 0;
     virtual void showPerson();
 };
