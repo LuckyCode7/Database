@@ -7,7 +7,7 @@ private:
     int index;
     bool correctIndex(const int&);
 public:
-    Student(const string& firstName_, const string& lastName_, const std::array<int, 11>& pesel,
+    Student(const string& firstName_, const string& lastName_, const string& pesel,
         const string& gender, const string& adress, const int& index);
     ~Student();
     void setIndex(const int&);

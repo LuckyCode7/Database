@@ -9,7 +9,7 @@ bool Student::correctIndex(const int& index_)
     return true;   
 }
 
-Student::Student(const string & firstName_, const string & lastName_, const std::array<int, 11>& pesel_,
+Student::Student(const string & firstName_, const string & lastName_, const string& pesel_,
     const string & gender_, const string & adress_, const int& index_)
 {
     this->setFirstName(firstName_);
