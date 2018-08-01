@@ -1,4 +1,5 @@
 #pragma once
+#include "Exceptions.hpp"
 #include <string>
 #include <iostream>
 #include <array>
@@ -7,10 +8,10 @@
 #include <cctype>
 #include <sstream>
 #include <limits>
-#include "Exceptions.hpp"
 #include <vector>
 #include <algorithm>
-#include <cstdlib>
+#include <fstream>
+#include<exception>
 
 using std::cin;
 using std::cout;
@@ -31,7 +32,6 @@ private:
     bool checkAdress(const string&);
     void setCorrectAdressFormat();
     bool checkGender(const string&);
-    void showPesel();
 public:
     virtual ~Person() {}
     void setPesel(const string&);
@@ -42,6 +42,9 @@ public:
     string getLastName() const;
     string getFirstName() const;
     string getPesel() const;
+    string getGender() const;
+    string getAdress() const;
     virtual int getSalary() const = 0;
+    virtual int getIndex() const = 0;
     virtual void showPerson();
 };

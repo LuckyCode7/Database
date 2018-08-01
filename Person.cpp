@@ -81,12 +81,6 @@ bool Person::checkGender(const string & gender)
     return true;
 }
 
-void Person::showPesel()
-{
-    for (int i = 0; i < 11; i++)
-        cout << "[" << this->PESEL[i] << "]";
-}
-
 void Person::setPesel(const string& pesel)
 {
     try
@@ -218,11 +212,21 @@ string Person::getPesel() const
     return this->PESEL;
 }
 
+string Person::getGender() const
+{
+    return this->gender;
+}
+
+string Person::getAdress() const
+{
+    return this->adress;
+}
+
 void Person::showPerson()
 {
     cout << endl << "First name: \t" << this->firstName << endl;
     cout << "Last name: \t" << this->lastName << endl;
-    cout << "PESEL: \t\t"; this->showPesel(); cout << endl;
+    cout << "PESEL: \t\t" << this->PESEL << endl;
     cout << "Gender: \t" << this->gender << endl;
     cout << "Adress: \t" << this->adress << endl;
 }
