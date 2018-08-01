@@ -1,8 +1,21 @@
 #include "Person.hpp"
 #include "Exceptions.hpp"
 
-bool Person::checkPesel(const std::array<int, 11> p)
+bool Person::checkPesel(const string& pesel)
 {
+    if (pesel.size() != 11)
+        return false;
+    for (int i = 0; i < pesel.size(); i++)
+    {
+        if (isalpha(pesel[i]))
+          return false;
+    }
+    std::array<int, 11> p;
+    for (int i = 0; i < pesel.size(); i++)
+    {
+       const  char* letter = &pesel[i];
+       p[i] = *letter - '0';
+    }
     if ((9 * p[0] + 7 * p[1] + 3 * p[2] + 1 * p[3] + 9 * p[4] + 7 * p[5] + 3 * p[6] + 1 * p[7] + 9 * p[8] + 7 * p[9]) % 10 == p[10])
         return true;
     return false;
@@ -74,7 +87,7 @@ void Person::showPesel()
         cout << "[" << this->PESEL[i] << "]";
 }
 
-void Person::setPesel(const std::array<int, 11> pesel)
+void Person::setPesel(const string& pesel)
 {
     try
     {
@@ -84,66 +97,13 @@ void Person::setPesel(const std::array<int, 11> pesel)
     }
     catch (InvalidPesel& exception)
     {
-        int sign;
         cout << exception.what() << endl;
 
         while (!checkPesel(this->PESEL))
         {
-            cout << endl << "Set correct PESEL: \a";
-            cout << "-----------\b\b\b\b\b\b\b\b\b\b\b";
-            for (int i = 0; i < 11; i++)
-            {
-                sign = _getch();
-                switch (sign)
-                {
-                case 48:
-                    PESEL[i] = 0;
-                    cout << 0;
-                    break;
-                case 49:
-                    PESEL[i] = 1;
-                    cout << 1;
-                    break;
-                case 50:
-                    PESEL[i] = 2;
-                    cout << 2;
-                    break;
-                case 51:
-                    PESEL[i] = 3;
-                    cout << 3;
-                    break;
-                case 52:
-                    PESEL[i] = 4;
-                    cout << 4;
-                    break;
-                case 53:
-                    PESEL[i] = 5;
-                    cout << 5;
-                    break;
-                case 54:
-                    PESEL[i] = 6;
-                    cout << 6;
-                    break;
-                case 55:
-                    PESEL[i] = 7;
-                    cout << 7;
-                    break;
-                case 56:
-                    PESEL[i] = 8;
-                    cout << 8;
-                    break;
-                case 57:
-                    PESEL[i] = 9;
-                    cout << 9;
-                    break;
-                default:
-                    --i;
-                    cout << "\a";
-                    break;
-                }
-            }
+            cout << endl << "Set correct "<<this->firstName<<" "<<this->lastName<<"'s PESEL:\a";
+            cin >> this->PESEL;
         }
-        cout << endl;
     }
 }
 
@@ -253,7 +213,7 @@ string Person::getFirstName() const
     return this->firstName;
 }
 
-std::array<int, 11> Person::getPesel() const
+string Person::getPesel() const
 {
     return this->PESEL;
 }
