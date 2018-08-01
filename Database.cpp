@@ -141,5 +141,23 @@ void Database::loadFromExternalFile() const
     } 
 }
 
+void Database::removePerson(const string& pesel_) const
+{
+    bool correctPesel = false;
+    for (auto x = data.begin(); x != data.end(); x++)
+    {
+        if ((*x)->getPesel() == pesel_)
+        {
+            data.erase(x);
+            correctPesel = true;
+            break;
+        }
+    }
+    if (correctPesel)
+        cout << "Removal completed" << endl;
+    else
+        cout << "There is no person with the given pesel: " << pesel_ << endl;
+}
+
 
 

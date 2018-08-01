@@ -22,7 +22,7 @@ int main()
 
     Employee employee3("marcin", "duzy", "91051962012", "man", "krakow, 90 spokojna", 3000);
     Person* person5 = &employee3;
-
+   
     database.addToDatabase(person1);
     database.addToDatabase(person2);
     database.addToDatabase(person3);
@@ -43,8 +43,11 @@ int main()
     //database.sortBySalary();
     //database.showDatabase();
 
-    database.addToExternalFile();
-    database.loadFromExternalFile();
+    //database.addToExternalFile();
+    //database.loadFromExternalFile();
+
+    database.removePerson("9301139701j");
+    database.showDatabase();
 
     system("PAUSE");
     return 0;

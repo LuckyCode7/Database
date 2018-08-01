@@ -14,4 +14,5 @@ public:
     void sortBySalary() const;
     void addToExternalFile() const;
     void loadFromExternalFile() const;
+    void removePerson(const string&) const;
 };
