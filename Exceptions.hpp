@@ -55,7 +55,15 @@ class InvalidSalary : public std::invalid_argument
 {
 public:
     InvalidSalary()
-        : invalid_argument("Salary can not be negative!")
+        : invalid_argument("Salary can not be negative !")
+    {}
+};
+
+class InvalidFile : public std::invalid_argument
+{
+public:
+    InvalidFile()
+        : invalid_argument("Can not open the file !")
     {}
 };
 
