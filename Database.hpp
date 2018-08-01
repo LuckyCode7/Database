@@ -15,4 +15,6 @@ public:
     void addToExternalFile() const;
     void loadFromExternalFile() const;
     void removePerson(const string&) const;
+    void changeEmployeeSalary(const string& pesel_, const int& salary_) const;
+    void changeAdress(const string& pesel_, const string& adress_) const;
 };

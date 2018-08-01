@@ -46,7 +46,13 @@ int main()
     //database.addToExternalFile();
     //database.loadFromExternalFile();
 
-    database.removePerson("9301139701j");
+    //database.removePerson("93011397013");
+    //database.showDatabase();
+
+    //database.changeEmployeeSalary("44051401359", -7500);
+    //database.showDatabase();
+
+    database.changeAdress("93011397014", "Gdansk,  finlandia");
     database.showDatabase();
 
     system("PAUSE");

@@ -159,5 +159,41 @@ void Database::removePerson(const string& pesel_) const
         cout << "There is no person with the given pesel: " << pesel_ << endl;
 }
 
+void Database::changeEmployeeSalary(const string& pesel_, const int& salary_) const
+{
+    bool correctPesel = false;
+    for (auto x = data.begin(); x != data.end(); x++)
+    {
+        if ((*x)->getPesel() == pesel_ && (*x)->getIndex() == 0)
+        {
+            correctPesel = true;
+            (*x)->setSalary(salary_);
+            break;
+        }
+    }
+    if (correctPesel)
+        cout << "Modyfication of salary completed" << endl;
+    else
+        cout << "There is no person with the given pesel: " << pesel_ << " or this person is a student" << endl;
+}
+
+void Database::changeAdress(const string & pesel_, const string & adress_) const
+{
+    bool correctPesel = false;
+    for (auto x = data.begin(); x != data.end(); x++)
+    {
+        if ((*x)->getPesel() == pesel_)
+        {
+            (*x)->setAdress(adress_);
+            correctPesel = true;
+            break;
+        }
+    }
+    if (correctPesel)
+        cout << "Modyfication of adress completed" << endl;
+    else
+        cout << "There is no person with the given pesel: " << pesel_ << endl;
+}
+
 
 
