@@ -40,8 +40,11 @@ int main()
      //database.sortByPesel();
      //database.showDatabase();
 
-    database.sortBySalary();
-    database.showDatabase();
+    //database.sortBySalary();
+    //database.showDatabase();
+
+    database.addToExternalFile();
+    database.loadFromExternalFile();
 
     system("PAUSE");
     return 0;
