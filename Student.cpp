@@ -65,4 +65,6 @@ int Student::getIndex() const
     return this->index;
 }
 
+void Student::setSalary(const int &) {}
+
 
