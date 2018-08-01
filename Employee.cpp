@@ -42,11 +42,16 @@ void Employee::showPerson()
 {
     cout << "Status: \temployee";
     Person::showPerson();
-    cout << "Index: \t\t" << this->salary << "$" << endl << endl;
+    cout << "Salary: \t" << this->salary << "$" << endl << endl;
 }
 
 int Employee::getSalary() const
 {
     return this->salary;
+}
+
+int Employee::getIndex() const
+{
+    return 0;
 }
 

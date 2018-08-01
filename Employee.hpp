@@ -12,4 +12,5 @@ public:
     void setSalary(const int&);
     void showPerson();
     int getSalary() const;
+    int getIndex() const;
 };
