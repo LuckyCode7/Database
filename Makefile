@@ -1,14 +1,18 @@
-CXX=g++
-STD= -std=c++14
-CXXFLAGS=-Wall -Wextra -Wpedantic 
-SRC=$(wildcard *.cpp)
-OBJ=$(SRC:.cpp=.o)
+CXX = g++ 
+CXXFLAGS = -Wall -Wpedantic -Wextra -Werror
+SRCS = $(wildcard *.cpp)
+OBJS = $(SRCS:.cpp=.o)
+TARGET = output
+
+.PHONY: all
+all: $(TARGET)
 
 %.o: %.cpp %.hpp
-	$(CXX) $(STD) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@   
 
-students:$(OBJ)
-	$(CXX) $(STD) $(CXXFLAGS) -o $@ $^
+$(TARGET): $(OBJS)
+	$(CXX) $^ -o $@
 
+.PHONY: clean
 clean:
-	rm students $(OBJ)
+	rm $(TARGET) *.o
