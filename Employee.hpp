@@ -10,7 +10,7 @@ public:
         const string& gender_, const string& adress_, const int& salary_);
     ~Employee();
     void setSalary(const int&);
-    void showPerson();
+    void showPerson() const;
     int getSalary() const;
     int getIndex() const;
 };

@@ -38,7 +38,7 @@ void Employee::setSalary(const int& salary_)
     }
 }
 
-void Employee::showPerson()
+void Employee::showPerson() const
 {
     cout << "Status: \temployee";
     Person::showPerson();
