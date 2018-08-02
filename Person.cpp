@@ -1,7 +1,7 @@
 #include "Person.hpp"
 #include "Exceptions.hpp"
 
-bool Person::checkPesel(const string& pesel)
+bool Person::checkPesel(const string& pesel) const
 {
     if (pesel.size() != 11)
         return false;
@@ -21,7 +21,7 @@ bool Person::checkPesel(const string& pesel)
     return false;
 }
 
-bool Person::checkName(const string & name)
+bool Person::checkName(const string & name) const
 {
     if (name.size() < 3)
         return false;
@@ -33,7 +33,7 @@ bool Person::checkName(const string & name)
     return true;
 }
 
-bool Person::checkAdress(const string& adress)
+bool Person::checkAdress(const string& adress) const
 {
     std::size_t found = adress.find(",");
 
@@ -74,7 +74,7 @@ void Person::setCorrectAdressFormat()
     this->adress += " street";
 }
 
-bool Person::checkGender(const string & gender)
+bool Person::checkGender(const string & gender) const
 {
     if (gender != "man" && gender != "woman")
         return false;
@@ -222,7 +222,7 @@ string Person::getAdress() const
     return this->adress;
 }
 
-void Person::showPerson()
+void Person::showPerson() const
 {
     cout << endl << "First name: \t" << this->firstName << endl;
     cout << "Last name: \t" << this->lastName << endl;

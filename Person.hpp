@@ -3,8 +3,6 @@
 #include <string>
 #include <iostream>
 #include <array>
-#include <stdlib.h>
-#include <conio.h>
 #include <cctype>
 #include <sstream>
 #include <limits>
@@ -12,6 +10,8 @@
 #include <algorithm>
 #include <fstream>
 #include<exception>
+#include <ctime>
+#include <set>
 
 using std::cin;
 using std::cout;
@@ -27,11 +27,11 @@ protected:
     string gender;
     string adress;
 private:
-    bool checkPesel(const string&);
-    bool checkName(const string&);
-    bool checkAdress(const string&);
+    bool checkPesel(const string&) const;
+    bool checkName(const string&) const;
+    bool checkAdress(const string&) const;
     void setCorrectAdressFormat();
-    bool checkGender(const string&);
+    bool checkGender(const string&) const;
 public:
     virtual ~Person() {}
     void setPesel(const string&);
@@ -47,5 +47,5 @@ public:
     virtual int getSalary() const = 0;
     virtual void setSalary(const int&) = 0;
     virtual int getIndex() const = 0;
-    virtual void showPerson();
+    virtual void showPerson() const;
 };
