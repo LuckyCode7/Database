@@ -1,10 +1,76 @@
 #include "Database.hpp"
+#include "Student.hpp"
+#include "Employee.hpp"
+
+namespace randomData
+{
+    std::array<string, 10> randomFirstName = { "rafal", "marek", "maciek", "piotrek", "ula",
+        "klaudia", "dominika", "tomek", "jan", "darek" };
+
+    std::array<string, 10> randomLastName = { "szybki", "wolny", "bystry", "michalewski", "miejski",
+        "nowy", "podlejski", "wawrzynek", "lichy", "staszewski" };
+
+    std::array<string, 10> randomPesel = { "93011397014", "25040751910", "44051401359", "00302557202", "91051962012",
+        "76871321706", "98111588700", "08260128313", "96122729307", "04231446613" };
+
+    std::array<string, 2> randomGender = { "man", "woman" };
+
+    std::array<string, 10> randomAdress = { "warszawa, 15 cicha", "warszawa, 7 cicha", "kalisz, 4 grunwaldzka", "poznan, 90 spokojna",
+        "krakow, 90 spokojna", "lodz, 99 bloska", "kielce, 1 powstancow", "gdynia, 67 lokietka", "wroclaw, 3 podwawelska", "wroclaw, 4 prosta" };
+
+    std::array<int, 10> randomIndex = { 123456, 467894, 378904, 234799, 456734, 678903, 136009, 567112, 789034, 996615 };
+
+    std::array<int, 10> randomSalary = { 1000,2000,3000,4000,5000,6000,7000,8000,9000,10000 };
+
+    std::set<int> number;
+}
 
 std::vector<Person*> data;
 
 Database::Database() {}
 
 Database::~Database() {}
+
+void Database::randomUniqueNumber() const
+{
+    int temporaryNumber;
+    srand(time(0));
+    while (randomData::number.size() != 6)
+    {
+        temporaryNumber = rand() % 10;
+        randomData::number.insert(temporaryNumber);
+    }
+}
+
+void Database::foundPersonResult(const int& result) const
+{
+    if (result == 0)
+        cout << "Result: no recrods found" << endl;
+    else
+        cout << "Result: found " << result << " records" << endl;
+}
+
+bool Database::fileOperationResult() const
+{
+    if (data.size())
+    {
+        cout << "Result: save completed" << endl;
+        return true;
+    }
+    else
+    {
+        cout << "Result: database is empty !" << endl;
+        return false;
+    }
+}
+
+void Database::modificationResult(bool result, const string& pesel_) const
+{
+    if (result)
+        cout << "Result: operation completed" << endl;
+    else
+        cout << "There is no person with the given pesel: " << pesel_ << endl;
+}
 
 void Database::addToDatabase(Person* person) const
 {
@@ -41,13 +107,7 @@ void Database::findLastName(const string& lastName_) const
             lastNamecounter++;
         }
     }
-    if (lastNamecounter == 0)
-        cout << "There are no people with lastname: " << lastName_ << " in the database" << endl;
-    else
-        if (lastNamecounter > 1)
-            cout << "Result: found " << lastNamecounter << " people" << endl;
-        else
-            cout << "Result: found " << lastNamecounter << " person" << endl;
+    foundPersonResult(lastNamecounter);
 }
 
 void Database::findPesel(const string& pesel_) const
@@ -61,33 +121,39 @@ void Database::findPesel(const string& pesel_) const
             peselCounter++;
         }
     }
-    if (peselCounter == 0)
-        cout << "There are no people with the given pesel" << endl;
-    else
-        cout << "Result: found " << peselCounter << " people" << endl;
+    foundPersonResult(peselCounter);
 }
 
 void Database::sortByLastName() const
 {
-    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getLastName() < two->getLastName(); });
-    cout << "Status: sorting completed" << endl;
+    if (data.size() > 1)
+    {
+        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getLastName() < two->getLastName(); });
+        cout << "Status: sorting completed" << endl;
+    }
 }
 
 void Database::sortByPesel() const
 {
-    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getPesel() < two->getPesel(); });
-    cout << "Status: sorting completed" << endl;
+    if (data.size() > 1)
+    {
+        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getPesel() < two->getPesel(); });
+        cout << "Status: sorting completed" << endl;
+    }
 }
 
 void Database::sortBySalary() const
 {
-    std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getSalary() < two->getSalary(); });
-    cout << "Status: sorting completed" << endl;
+    if (data.size() > 1)
+    {
+        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getSalary() < two->getSalary(); });
+        cout << "Status: sorting completed" << endl;
+    }
 }
 
 void Database::addToExternalFile() const
 {
-    if (data.size())
+    if (fileOperationResult())
     {
         std::ofstream outFile("DATABASE.txt", std::ios_base::out | std::ios_base::ate | std::ios_base::app);
         for (auto x : data)
@@ -107,10 +173,7 @@ void Database::addToExternalFile() const
                 outFile << "Index:\t\t" << x->getIndex() << endl << endl;
         }
         outFile.close();
-        cout << "Status: save completed" << endl;
     }
-    else
-        cout << "There are no students in the database" << endl;
 }
 
 void Database::loadFromExternalFile() const
@@ -121,7 +184,6 @@ void Database::loadFromExternalFile() const
         std::ifstream inFile("DATABASE.txt");
         if (inFile.is_open())
         {
-            std::cout << "Studenst loaded from external file: " << std::endl << std::endl;
             while (!inFile.eof())
             {
                 getline(inFile, textFromFile);
@@ -138,7 +200,7 @@ void Database::loadFromExternalFile() const
     catch (std::exception& exception)
     {
         cout << exception.what() << endl;
-    } 
+    }
 }
 
 void Database::removePerson(const string& pesel_) const
@@ -153,10 +215,7 @@ void Database::removePerson(const string& pesel_) const
             break;
         }
     }
-    if (correctPesel)
-        cout << "Removal completed" << endl;
-    else
-        cout << "There is no person with the given pesel: " << pesel_ << endl;
+    modificationResult(correctPesel, pesel_);
 }
 
 void Database::changeEmployeeSalary(const string& pesel_, const int& salary_) const
@@ -171,10 +230,7 @@ void Database::changeEmployeeSalary(const string& pesel_, const int& salary_) co
             break;
         }
     }
-    if (correctPesel)
-        cout << "Modyfication of salary completed" << endl;
-    else
-        cout << "There is no person with the given pesel: " << pesel_ << " or this person is a student" << endl;
+    modificationResult(correctPesel, pesel_);
 }
 
 void Database::changeAdress(const string & pesel_, const string & adress_) const
@@ -189,10 +245,46 @@ void Database::changeAdress(const string & pesel_, const string & adress_) const
             break;
         }
     }
-    if (correctPesel)
-        cout << "Modyfication of adress completed" << endl;
-    else
-        cout << "There is no person with the given pesel: " << pesel_ << endl;
+    modificationResult(correctPesel, pesel_);
+}
+
+void Database::setRandomData() const
+{
+    using namespace randomData;
+    std::array<int, 6> i;
+    int j = 0;
+    randomUniqueNumber();
+    for (auto x : number)
+    {
+        i[j] = x;
+        j++;
+    }
+    clearDatabase();
+    srand(time(0));
+    static Student s1(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[0]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomIndex[rand() % 10]);
+    static Student s2(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[1]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomIndex[rand() % 10]);
+    static Student s3(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[2]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomIndex[rand() % 10]);
+    static Employee e1(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[3]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomSalary[rand() % 10]);
+    static Employee e2(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[4]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomSalary[rand() % 10]);
+    static Employee e3(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[5]], randomGender[rand() % 2],
+        randomAdress[rand() % 10], randomSalary[rand() % 10]);
+
+    addToDatabase(&s1);
+    addToDatabase(&s2);
+    addToDatabase(&s3);
+    addToDatabase(&e1);
+    addToDatabase(&e2);
+    addToDatabase(&e3);
+}
+
+void Database::clearDatabase() const
+{
+    data.clear();
 }
 
 
