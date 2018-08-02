@@ -1,6 +1,6 @@
 #include "Student.hpp"
 
-bool Student::correctIndex(const int& index_)
+bool Student::correctIndex(const int& index_) const
 {
     double correctIndex = index_ / 100000;
     
@@ -48,7 +48,7 @@ void Student::setIndex(const int& index_)
     }
 }
 
-void Student::showPerson()
+void Student::showPerson() const
 {
     cout << "Status: \tstudent";
     Person::showPerson();
