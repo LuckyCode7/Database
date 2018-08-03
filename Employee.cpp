@@ -1,15 +1,17 @@
 #include "Employee.hpp"
+#include "Exceptions.hpp"
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
 Employee::Employee(const string & firstName_, const string & lastName_, const string& pesel_,
     const string & gender_, const string & adress_, const int & salary_)
-{
-    this->setFirstName(firstName_);
-    this->setLastName(lastName_);
-    this->setPesel(pesel_);
-    this->setGender(gender_);
-    this->setAdress(adress_);
-    this->setSalary(salary_);
-}
+    :Person(firstName_, lastName_, pesel_, gender_, adress_)
+    ,salary(salary_)
+{}
 
 Employee::~Employee() {}
 
@@ -19,11 +21,12 @@ void Employee::setSalary(const int& salary_)
     {
         this->salary = salary_;
         if (salary_ < 0)
-            throw InvalidSalary();
+            throw InvalidSalary(this->getFirstName() + " "+this->getLastName());
     }
     catch (InvalidSalary& exception)
     {
         cout << exception.what() << endl;
+        exception.message();
         while (this->salary < 0)
         {
             cout << "Set correct salary: \a";
@@ -54,4 +57,7 @@ int Employee::getIndex() const
 {
     return 0;
 }
+
+void Employee::setIndex(const int &) {}
+
 

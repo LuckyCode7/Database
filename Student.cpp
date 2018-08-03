@@ -1,4 +1,11 @@
 #include "Student.hpp"
+#include "Exceptions.hpp"
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
 bool Student::correctIndex(const int& index_) const
 {
@@ -11,14 +18,9 @@ bool Student::correctIndex(const int& index_) const
 
 Student::Student(const string & firstName_, const string & lastName_, const string& pesel_,
     const string & gender_, const string & adress_, const int& index_)
-{
-    this->setFirstName(firstName_);
-    this->setLastName(lastName_);
-    this->setPesel(pesel_);
-    this->setGender(gender_);
-    this->setAdress(adress_);
-    this->setIndex(index_);
-}
+    :Person(firstName_,lastName_,pesel_,gender_,adress_)
+    ,index(index_)
+{}
 
 Student::~Student() {}
 
@@ -28,11 +30,12 @@ void Student::setIndex(const int& index_)
     {
         this->index = index_;
         if (!correctIndex(index_))
-            throw InvalidIndex();
+            throw InvalidIndex(this->getFirstName()+" "+this->getLastName());
     }
     catch (InvalidIndex& exception)
     {
         cout << exception.what() << endl;
+        exception.message();
         cout << exception.format() << endl;
         while (!correctIndex(this->index))
         {
@@ -57,7 +60,7 @@ void Student::showPerson() const
 
 int Student::getSalary() const
 {
-    return 0; //soooo true
+    return 0; 
 }
 
 int Student::getIndex() const

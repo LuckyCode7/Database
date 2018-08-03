@@ -1,6 +1,19 @@
 #include "Database.hpp"
 #include "Student.hpp"
 #include "Employee.hpp"
+#include "Exceptions.hpp"
+#include <iostream>
+#include <array>
+#include <set>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+#include <fstream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
 namespace randomData
 {
@@ -30,6 +43,18 @@ std::vector<Person*> data;
 Database::Database() {}
 
 Database::~Database() {}
+
+void Database::checkPeronalData(Person* person)
+{
+    person->setFirstName(person->getFirstName());
+    person->setLastName(person->getLastName());
+    person->setGender(person->getGender());
+    person->setAdress(person->getAdress());
+    if (person->getSalary() == 0)
+        person->setIndex(person->getIndex());
+    else
+        person->setSalary(person->getSalary());
+}
 
 void Database::randomUniqueNumber() const
 {
@@ -72,8 +97,9 @@ void Database::modificationResult(bool result, const string& pesel_) const
         cout << "There is no person with the given pesel: " << pesel_ << endl;
 }
 
-void Database::addToDatabase(Person* person) const
+void Database::addToDatabase(Person* person) 
 {
+    checkPeronalData(person);
     bool acces = true;
     for (auto x : data)
     {
@@ -248,7 +274,7 @@ void Database::changeAdress(const string & pesel_, const string & adress_) const
     modificationResult(correctPesel, pesel_);
 }
 
-void Database::setRandomData() const
+void Database::setRandomData() 
 {
     using namespace randomData;
     std::array<int, 6> i;

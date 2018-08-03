@@ -3,6 +3,7 @@
 class Database
 {
 private:
+    void checkPeronalData(Person*);
     void randomUniqueNumber()const;
     void foundPersonResult(const int&)const;
     bool fileOperationResult() const;
@@ -10,7 +11,7 @@ private:
 public:
     Database();
     ~Database();
-    void addToDatabase(Person*) const;
+    void addToDatabase(Person*);
     void showDatabase() const;
     void findLastName(const string&) const;
     void findPesel(const string&) const;
@@ -22,6 +23,6 @@ public:
     void removePerson(const string&) const;
     void changeEmployeeSalary(const string& pesel_, const int& salary_) const;
     void changeAdress(const string& pesel_, const string& adress_) const;
-    void setRandomData() const;
+    void setRandomData();
     void clearDatabase() const;
 };

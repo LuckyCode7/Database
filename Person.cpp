@@ -1,5 +1,13 @@
 #include "Person.hpp"
 #include "Exceptions.hpp"
+#include <iostream>
+#include <array>
+#include <sstream>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
 
 bool Person::checkPesel(const string& pesel) const
 {
@@ -81,21 +89,30 @@ bool Person::checkGender(const string & gender) const
     return true;
 }
 
+Person::Person(const string & firstName_, const string & lastName_, const string & pesel_,
+    const string & gender_, const string & adress_)
+    :firstName(firstName_)
+    ,lastName(lastName_)
+    ,PESEL(pesel_)
+    ,gender(gender_)
+    ,adress(adress_)
+{}
+
 void Person::setPesel(const string& pesel)
 {
     try
     {
         this->PESEL = pesel;
         if (!checkPesel(this->PESEL))
-            throw InvalidPesel();
+            throw InvalidPesel(this->firstName + " " + this->lastName);
     }
     catch (InvalidPesel& exception)
     {
         cout << exception.what() << endl;
-
+        exception.message();
         while (!checkPesel(this->PESEL))
         {
-            cout << endl << "Set correct "<<this->firstName<<" "<<this->lastName<<"'s PESEL:\a";
+            cout << endl << "Set correct PESEL:\a";
             cin >> this->PESEL;
         }
     }
@@ -107,14 +124,15 @@ void Person::setGender(const string& gender_)
     {
         this->gender = gender_;
         if (!checkGender(gender_))
-            throw InvalidGender();
+            throw InvalidGender(this->firstName + " " + this->lastName);
     }
     catch (InvalidGender& exception)
     {
         cout << exception.what() << endl;
+        exception.message();
         do
         {
-            cout << "Set  correct gender <man/woman> :\a";
+            cout << "Set correct gender <man/woman> :\a";
             cin >> this->gender;
         } while (!checkGender(this->gender));
     }
@@ -126,11 +144,12 @@ void Person::setFirstName(const string& firstName_)
     {
         this->firstName = firstName_;
         if (!checkName(firstName_))
-            throw InvalidFirstName();
+            throw InvalidFirstName(this->firstName + " " + this->lastName);
     }
     catch (InvalidFirstName& exception)
     {
         cout << exception.what() << endl;
+        exception.message();
         while (!checkName(this->firstName))
         {
             cout << "Set correct first name: \a";
@@ -147,14 +166,15 @@ void Person::setLastName(const string & lastName_)
         {
             this->lastName = lastName_;
             if (!checkName(lastName_))
-                throw InvalidLastName();
+                throw InvalidLastName(this->firstName + " " + this->lastName);
         }
         catch (InvalidLastName& exception)
         {
             cout << exception.what() << endl;
+            exception.message();
             while (!checkName(this->lastName))
             {
-                cout << "Set correct first name: \a";
+                cout << "Set correct last name: \a";
                 cin >> this->lastName;
             }
         }
@@ -168,7 +188,7 @@ void Person::setAdress(const string& adress)
     {
         this->adress = adress;
         if (!(checkAdress(adress)))
-            throw InvalidAdress();
+            throw InvalidAdress(this->firstName + " " + this->lastName);
     }
     catch (InvalidAdress& exception)
     {
@@ -177,6 +197,7 @@ void Person::setAdress(const string& adress)
         string street;
         std::stringstream ss;
         cout << exception.what() << endl;
+        exception.message();
         cout << exception.format() << endl;
         cout << "Set city: \a";
         cin >> city;
