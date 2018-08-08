@@ -1,6 +1,7 @@
 #include "Student.hpp"
 #include "Exceptions.hpp"
 #include <iostream>
+#include <limits>
 
 using std::cin;
 using std::cout;

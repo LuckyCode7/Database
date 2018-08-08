@@ -3,6 +3,7 @@
 #include <iostream>
 #include <array>
 #include <sstream>
+#include <limits>
 
 using std::cin;
 using std::cout;
@@ -13,13 +14,13 @@ bool Person::checkPesel(const string& pesel_) const
 {
     if (pesel_.size() != 11)
         return false;
-    for (int i = 0; i < pesel_.size(); i++)
+    for (unsigned int i = 0; i < pesel_.size(); i++)
     {
         if (isalpha(pesel_[i]))
           return false;
     }
     std::array<int, 11> p;
-    for (int i = 0; i < pesel_.size(); i++)
+    for (unsigned int i = 0; i < pesel_.size(); i++)
     {
        const  char* letter = &pesel_[i];
        p[i] = *letter - '0';
@@ -33,7 +34,7 @@ bool Person::checkName(const string& name_) const
 {
     if (name_.size() < 3)
         return false;
-    for (int i = 0; i < name_.size(); i++)
+    for (unsigned int i = 0; i < name_.size(); i++)
     {
         if (isdigit(name_[i]))
             return false;
@@ -59,7 +60,7 @@ void Person::setCorrectAdressFormat()
     int numeralCounter = 0;
     std::size_t found = adress.find(",");
     adress[0] = toupper(adress[0]);
-    for (int i = 0; i < adress.size(); i++)
+    for (unsigned int i = 0; i < adress.size(); i++)
     {
         if (isdigit(adress[i]))
             numeralCounter++;

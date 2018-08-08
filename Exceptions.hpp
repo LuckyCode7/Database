@@ -13,7 +13,7 @@ class InvalidPesel : public std::invalid_argument
 public:
     InvalidPesel(const string& person_)
         : invalid_argument("Invalid PESEL !")
-        ,person(person)
+        ,person(person_)
     {}
     void message() { cout << "Person " << person << endl; }
 };
