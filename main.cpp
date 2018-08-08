@@ -1,60 +1,65 @@
 #include "Student.hpp"
 #include "Employee.hpp"
 #include "Database.hpp"
+#include <iostream>
+#include <vector>
 
 int main()
 {
     Database database;
 
-    Student rafal("rafal", "nowak", "93011397014", "man", "warszawa, 15 cicha", 123456);
-    Person* person1 = &rafal;
+    Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
 
-    Student jan("Jan", "tyski", "25040751910", "man", "warszawa, 7 cicha", 227401);
-    Person* person3 = &jan;
+    Person* jan = new Student("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 227401);
 
-    Employee ula("ula", "kowlaksa", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
-    Person* person2 = &ula;
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
 
-    Employee michal("michal", "maly", "00302557202", "man", "poznan, 90 spokojna", 5500);
-    Person* person4 = &michal;
+    Person* michal = new Employee("michal", "szybki", "00302557202", "man", "poznan, 90 spokojna", 5500);
 
-    Employee marcin("marcin", "duzy", "91051962012", "man", "krakow, 90 spokojna", 3000);
-    Person* person5 = &marcin;
+    Person* marcin = new Employee("marcin", "nowak", "91051962012", "man", "krakow, 90 spokojna", 3000);
 
-    database.addToDatabase(person1);
-    database.addToDatabase(person2);
-    database.addToDatabase(person3);
-    database.addToDatabase(person4);
-    database.addToDatabase(person5);
+    /// TEST:
 
-    database.showDatabase();
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.addToDatabase(michal);
+    database.addToDatabase(marcin);
 
-    database.findLastName("Nowak");
-    database.findPesel("9301139701");
+    //database.showDatabase();
+    
+    //for (auto x : database.findByLastName("Nowak")) x->showPerson();
+    //for (auto x : database.findByPesel("91051962012")) x->showPerson();
+    //for (auto x : database.findByAdress("Warszawa, 7 Cicha street")) x->showPerson();
+    //for (auto x : database.findAllStudnents()) x->showPerson();
+    //for (auto x : database.findAllEmployees()) x->showPerson();
+    
+    //database.sortByLastName();
+    //database.showDatabase();
 
-    database.sortByLastName();
-    database.showDatabase();
+    //database.sortByPesel();
+    //database.showDatabase();
 
-    database.sortByPesel();
-    database.showDatabase();
+    //database.sortBySalary();
+    //database.showDatabase();
 
-    database.sortBySalary();
-    database.showDatabase();
+    //database.addToExternalFile("DATABASE.txt");
+    //database.loadFromExternalFile("DATABASE.txt");
+    //database.showDatabase();
 
-    database.addToExternalFile();
-    database.loadFromExternalFile();
+    //database.removePerson("93011397011");
+    //database.showDatabase();
 
-    database.removePerson("93011397013");
-    database.showDatabase();
+    //database.changeEmployeeSalary("44051401359", 99);
+    //database.showDatabase();
 
-    database.changeEmployeeSalary("44051401359", -7500);
-    database.showDatabase();
+    //database.changeAdress("93011397014", "Gdansk, 8 finlandia");
+    //database.showDatabase();
 
-    database.changeAdress("93011397014", "Gdansk, 8 finlandia");
-    database.showDatabase();
-
-    database.setRandomData();
-    database.showDatabase();
+    //database.setRandomData();
+    //database.showDatabase();
+   
+    database.clearDatabase();
 
     system("PAUSE");
     return 0;

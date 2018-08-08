@@ -9,19 +9,19 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool Person::checkPesel(const string& pesel) const
+bool Person::checkPesel(const string& pesel_) const
 {
-    if (pesel.size() != 11)
+    if (pesel_.size() != 11)
         return false;
-    for (int i = 0; i < pesel.size(); i++)
+    for (int i = 0; i < pesel_.size(); i++)
     {
-        if (isalpha(pesel[i]))
+        if (isalpha(pesel_[i]))
           return false;
     }
     std::array<int, 11> p;
-    for (int i = 0; i < pesel.size(); i++)
+    for (int i = 0; i < pesel_.size(); i++)
     {
-       const  char* letter = &pesel[i];
+       const  char* letter = &pesel_[i];
        p[i] = *letter - '0';
     }
     if ((9 * p[0] + 7 * p[1] + 3 * p[2] + 1 * p[3] + 9 * p[4] + 7 * p[5] + 3 * p[6] + 1 * p[7] + 9 * p[8] + 7 * p[9]) % 10 == p[10])
@@ -29,26 +29,26 @@ bool Person::checkPesel(const string& pesel) const
     return false;
 }
 
-bool Person::checkName(const string & name) const
+bool Person::checkName(const string& name_) const
 {
-    if (name.size() < 3)
+    if (name_.size() < 3)
         return false;
-    for (int i = 0; i < name.size(); i++)
+    for (int i = 0; i < name_.size(); i++)
     {
-        if (!isalpha(name[i]))
+        if (isdigit(name_[i]))
             return false;
     }
     return true;
 }
 
-bool Person::checkAdress(const string& adress) const
+bool Person::checkAdress(const string& adress_) const
 {
-    std::size_t found = adress.find(",");
+    std::size_t found = adress_.find(",");
 
     if ((found == std::string::npos))
         return false;
     else
-        if (isdigit(adress[found + 2]) == false)
+        if (isdigit(adress_[found + 2]) == false)
             return false;
         else
             return true;
@@ -58,38 +58,39 @@ void Person::setCorrectAdressFormat()
 {
     int numeralCounter = 0;
     std::size_t found = adress.find(",");
-    this->adress[0] = toupper(this->adress[0]);
-    for (int i = 0; i < this->adress.size(); i++)
+    adress[0] = toupper(adress[0]);
+    for (int i = 0; i < adress.size(); i++)
     {
-        if (isdigit(this->adress[i]))
+        if (isdigit(adress[i]))
             numeralCounter++;
     }
     switch (numeralCounter)
     {
     case 1:
-        this->adress[found + 4] = toupper(this->adress[found + 4]);
+        adress[found + 4] = toupper(adress[found + 4]);
         break;
     case 2:
-        this->adress[found + 5] = toupper(this->adress[found + 5]);
+        adress[found + 5] = toupper(adress[found + 5]);
         break;
     case 3:
-        this->adress[found + 6] = toupper(this->adress[found + 6]);
+        adress[found + 6] = toupper(adress[found + 6]);
         break;
     case 4:
-        this->adress[found + 7] = toupper(this->adress[found + 7]);
+        adress[found + 7] = toupper(adress[found + 7]);
         break;
     }
-    this->adress += " street";
+    adress += " street";
 }
 
-bool Person::checkGender(const string & gender) const
+bool Person::checkGender(const string& gender_) const
 {
-    if (gender != "man" && gender != "woman")
+    if (gender_ != "man" && gender_ != "woman")
         return false;
-    return true;
+    else
+        return true;
 }
 
-Person::Person(const string & firstName_, const string & lastName_, const string & pesel_,
+Person::Person(const string& firstName_, const string& lastName_, const string& pesel_,
     const string & gender_, const string & adress_)
     :firstName(firstName_)
     ,lastName(lastName_)
@@ -98,22 +99,22 @@ Person::Person(const string & firstName_, const string & lastName_, const string
     ,adress(adress_)
 {}
 
-void Person::setPesel(const string& pesel)
+void Person::setPesel(const string& pesel_)
 {
     try
     {
-        this->PESEL = pesel;
-        if (!checkPesel(this->PESEL))
-            throw InvalidPesel(this->firstName + " " + this->lastName);
+        PESEL = pesel_;
+        if (!checkPesel(PESEL))
+            throw InvalidPesel(firstName + " " + lastName);
     }
     catch (InvalidPesel& exception)
     {
         cout << exception.what() << endl;
         exception.message();
-        while (!checkPesel(this->PESEL))
+        while (!checkPesel(PESEL))
         {
             cout << endl << "Set correct PESEL:\a";
-            cin >> this->PESEL;
+            cin >> PESEL;
         }
     }
 }
@@ -124,7 +125,7 @@ void Person::setGender(const string& gender_)
     {
         this->gender = gender_;
         if (!checkGender(gender_))
-            throw InvalidGender(this->firstName + " " + this->lastName);
+            throw InvalidGender(firstName + " " + lastName);
     }
     catch (InvalidGender& exception)
     {
@@ -133,8 +134,8 @@ void Person::setGender(const string& gender_)
         do
         {
             cout << "Set correct gender <man/woman> :\a";
-            cin >> this->gender;
-        } while (!checkGender(this->gender));
+            cin >> gender;
+        } while (!checkGender(gender));
     }
 }
 
@@ -142,53 +143,53 @@ void Person::setFirstName(const string& firstName_)
 {
     try
     {
-        this->firstName = firstName_;
+        firstName = firstName_;
         if (!checkName(firstName_))
-            throw InvalidFirstName(this->firstName + " " + this->lastName);
+            throw InvalidFirstName(firstName + " " + lastName);
     }
     catch (InvalidFirstName& exception)
     {
         cout << exception.what() << endl;
         exception.message();
-        while (!checkName(this->firstName))
+        while (!checkName(firstName))
         {
             cout << "Set correct first name: \a";
-            cin >> this->firstName;
+            cin >> firstName;
         }
     }
-    this->firstName[0] = toupper(this->firstName[0]);
+    firstName[0] = toupper(firstName[0]);
 }
 
-void Person::setLastName(const string & lastName_)
+void Person::setLastName(const string& lastName_)
 {
     {
         try
         {
-            this->lastName = lastName_;
+            lastName = lastName_;
             if (!checkName(lastName_))
-                throw InvalidLastName(this->firstName + " " + this->lastName);
+                throw InvalidLastName(firstName + " " + lastName);
         }
         catch (InvalidLastName& exception)
         {
             cout << exception.what() << endl;
             exception.message();
-            while (!checkName(this->lastName))
+            while (!checkName(lastName))
             {
                 cout << "Set correct last name: \a";
-                cin >> this->lastName;
+                cin >> lastName;
             }
         }
-        this->lastName[0] = toupper(this->lastName[0]);
+        lastName[0] = toupper(lastName[0]);
     }
 }
 
-void Person::setAdress(const string& adress)
+void Person::setAdress(const string& adress_)
 {
     try
     {
-        this->adress = adress;
+        adress = adress_;
         if (!(checkAdress(adress)))
-            throw InvalidAdress(this->firstName + " " + this->lastName);
+            throw InvalidAdress(firstName + " " + lastName);
     }
     catch (InvalidAdress& exception)
     {
@@ -220,36 +221,36 @@ void Person::setAdress(const string& adress)
 
 string Person::getLastName() const
 {
-    return this->lastName;
+    return lastName;
 }
 
 string Person::getFirstName() const
 {
-    return this->firstName;
+    return firstName;
 }
 
 string Person::getPesel() const
 {
-    return this->PESEL;
+    return PESEL;
 }
 
 string Person::getGender() const
 {
-    return this->gender;
+    return gender;
 }
 
 string Person::getAdress() const
 {
-    return this->adress;
+    return adress;
 }
 
 void Person::showPerson() const
 {
-    cout << endl << "First name: \t" << this->firstName << endl;
-    cout << "Last name: \t" << this->lastName << endl;
-    cout << "PESEL: \t\t" << this->PESEL << endl;
-    cout << "Gender: \t" << this->gender << endl;
-    cout << "Adress: \t" << this->adress << endl;
+    cout << endl << "First name: \t" << firstName << endl;
+    cout << "Last name: \t" << lastName << endl;
+    cout << "PESEL: \t\t" << PESEL << endl;
+    cout << "Gender: \t" << gender << endl;
+    cout << "Adress: \t" << adress << endl;
 }
 
 

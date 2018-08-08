@@ -28,19 +28,19 @@ void Student::setIndex(const int& index_)
 {
     try
     {
-        this->index = index_;
+        index = index_;
         if (!correctIndex(index_))
-            throw InvalidIndex(this->getFirstName()+" "+this->getLastName());
+            throw InvalidIndex(getFirstName() + " " + getLastName());
     }
     catch (InvalidIndex& exception)
     {
         cout << exception.what() << endl;
         exception.message();
         cout << exception.format() << endl;
-        while (!correctIndex(this->index))
+        while (!correctIndex(index))
         {
             cout << "Set correct index: \a";
-            cin >> this->index;
+            cin >> index;
             if (cin.fail())
             {
                 cin.clear();
@@ -55,7 +55,7 @@ void Student::showPerson() const
 {
     cout << "Status: \tstudent";
     Person::showPerson();
-    cout << "Index: \t\t" << this->index << endl << endl;
+    cout << "Index: \t\t" << index << endl << endl;
 }
 
 int Student::getSalary() const
@@ -65,7 +65,7 @@ int Student::getSalary() const
 
 int Student::getIndex() const
 {
-    return this->index;
+    return index;
 }
 
 void Student::setSalary(const int &) {}

@@ -11,20 +11,20 @@ private:
     string PESEL;
     string gender;
     string adress;
-    bool checkPesel(const string&) const;
-    bool checkName(const string&) const;
-    bool checkAdress(const string&) const;
+    bool checkPesel(const string& pesel_) const;
+    bool checkName(const string& name_) const;
+    bool checkAdress(const string& adress_) const;
     void setCorrectAdressFormat();
-    bool checkGender(const string&) const;
+    bool checkGender(const string& gender_) const;
 public:
     Person(const string & firstName_, const string & lastName_, const string& pesel_,
         const string & gender_, const string & adress_);
     virtual ~Person() {}
-    void setPesel(const string&);
-    void setGender(const string&);
-    void setFirstName(const string&);
-    void setLastName(const string&);
-    void setAdress(const string&);
+    void setPesel(const string& pesel_);
+    void setGender(const string& gender_);
+    void setFirstName(const string& firstName_);
+    void setLastName(const string& lastName_);
+    void setAdress(const string& adress_);
     string getLastName() const;
     string getFirstName() const;
     string getPesel() const;

@@ -1,28 +1,34 @@
 #include "Person.hpp"
+#include <set>
+#include <vector>
+#include<functional>
 
 class Database
 {
 private:
-    void checkPeronalData(Person*);
+    void checkPeronalData(Person* person);
     void randomUniqueNumber()const;
-    void foundPersonResult(const int&)const;
-    bool fileOperationResult() const;
-    void modificationResult(bool, const string&) const;
+    std::set<Person*> find(std::function<bool(Person*)> what) const;
+    std::vector<Person*>::iterator getIterator(const string& pesel_);
+    std::vector<Person*> data;
 public:
     Database();
     ~Database();
-    void addToDatabase(Person*);
+    bool addToDatabase(Person* person);
     void showDatabase() const;
-    void findLastName(const string&) const;
-    void findPesel(const string&) const;
-    void sortByLastName() const;
-    void sortByPesel() const;
-    void sortBySalary() const;
-    void addToExternalFile() const;
-    void loadFromExternalFile() const;
-    void removePerson(const string&) const;
-    void changeEmployeeSalary(const string& pesel_, const int& salary_) const;
-    void changeAdress(const string& pesel_, const string& adress_) const;
+    std::set<Person*> findByLastName(const string& lastName_) const;
+    std::set<Person*> findByPesel(const string& pesel_) const;
+    std::set<Person*> findByAdress(const string& adress_) const;
+    std::set<Person*> findAllStudnents() const;
+    std::set<Person*> findAllEmployees() const;
+    void sortByLastName();
+    void sortByPesel();
+    void sortBySalary();
+    void addToExternalFile(const string& fileName) const;
+    void loadFromExternalFile(const string& fileName);
+    void removePerson(const string& pesel_);
+    void changeEmployeeSalary(const string& pesel_, const int& salary_);
+    void changeAdress(const string& pesel_, const string& adress_);
     void setRandomData();
-    void clearDatabase() const;
+    void clearDatabase();
 };

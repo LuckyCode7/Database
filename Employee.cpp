@@ -19,18 +19,18 @@ void Employee::setSalary(const int& salary_)
 {
     try
     {
-        this->salary = salary_;
+        salary = salary_;
         if (salary_ < 0)
-            throw InvalidSalary(this->getFirstName() + " "+this->getLastName());
+            throw InvalidSalary(getFirstName() + " " + getLastName());
     }
     catch (InvalidSalary& exception)
     {
         cout << exception.what() << endl;
         exception.message();
-        while (this->salary < 0)
+        while (salary < 0)
         {
             cout << "Set correct salary: \a";
-            cin >> this->salary;
+            cin >> salary;
             if (cin.fail())
             {
                 cin.clear();
@@ -45,12 +45,12 @@ void Employee::showPerson() const
 {
     cout << "Status: \temployee";
     Person::showPerson();
-    cout << "Salary: \t" << this->salary << "$" << endl << endl;
+    cout << "Salary: \t" << salary << "$" << endl << endl;
 }
 
 int Employee::getSalary() const
 {
-    return this->salary;
+    return salary;
 }
 
 int Employee::getIndex() const
@@ -58,6 +58,6 @@ int Employee::getIndex() const
     return 0;
 }
 
-void Employee::setIndex(const int &) {}
+void Employee::setIndex(const int& index_) {}
 
 

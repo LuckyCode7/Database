@@ -2,6 +2,7 @@
 #include "Student.hpp"
 #include "Employee.hpp"
 #include "Exceptions.hpp"
+#include "randomData.hpp"
 #include <iostream>
 #include <array>
 #include <set>
@@ -9,36 +10,12 @@
 #include <algorithm>
 #include <ctime>
 #include <fstream>
+#include <sstream>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
-
-namespace randomData
-{
-    std::array<string, 10> randomFirstName = { "rafal", "marek", "maciek", "piotrek", "ula",
-        "klaudia", "dominika", "tomek", "jan", "darek" };
-
-    std::array<string, 10> randomLastName = { "szybki", "wolny", "bystry", "michalewski", "miejski",
-        "nowy", "podlejski", "wawrzynek", "lichy", "staszewski" };
-
-    std::array<string, 10> randomPesel = { "93011397014", "25040751910", "44051401359", "00302557202", "91051962012",
-        "76871321706", "98111588700", "08260128313", "96122729307", "04231446613" };
-
-    std::array<string, 2> randomGender = { "man", "woman" };
-
-    std::array<string, 10> randomAdress = { "warszawa, 15 cicha", "warszawa, 7 cicha", "kalisz, 4 grunwaldzka", "poznan, 90 spokojna",
-        "krakow, 90 spokojna", "lodz, 99 bloska", "kielce, 1 powstancow", "gdynia, 67 lokietka", "wroclaw, 3 podwawelska", "wroclaw, 4 prosta" };
-
-    std::array<int, 10> randomIndex = { 123456, 467894, 378904, 234799, 456734, 678903, 136009, 567112, 789034, 996615 };
-
-    std::array<int, 10> randomSalary = { 1000,2000,3000,4000,5000,6000,7000,8000,9000,10000 };
-
-    std::set<int> number;
-}
-
-std::vector<Person*> data;
 
 Database::Database() {}
 
@@ -67,53 +44,15 @@ void Database::randomUniqueNumber() const
     }
 }
 
-void Database::foundPersonResult(const int& result) const
-{
-    if (result == 0)
-        cout << "Result: no recrods found" << endl;
-    else
-        cout << "Result: found " << result << " records" << endl;
-}
-
-bool Database::fileOperationResult() const
-{
-    if (data.size())
-    {
-        cout << "Result: save completed" << endl;
-        return true;
-    }
-    else
-    {
-        cout << "Result: database is empty !" << endl;
-        return false;
-    }
-}
-
-void Database::modificationResult(bool result, const string& pesel_) const
-{
-    if (result)
-        cout << "Result: operation completed" << endl;
-    else
-        cout << "There is no person with the given pesel: " << pesel_ << endl;
-}
-
-void Database::addToDatabase(Person* person) 
+bool Database::addToDatabase(Person* person)
 {
     checkPeronalData(person);
-    bool acces = true;
-    for (auto x : data)
+    if (getIterator(person->getAdress()) == data.end())
     {
-        if (x->getPesel() == person->getPesel())
-        {
-            cout << "Pesel of " << person->getFirstName() << " " << person->getLastName() << " already exists !" << endl;
-            acces = false;
-            break;
-        }
-        else
-            acces = true;
+        data.emplace_back(person);
+        return true;
     }
-    if (acces == true)
-        data.push_back(person);
+    return false;
 }
 
 void Database::showDatabase() const
@@ -122,102 +61,146 @@ void Database::showDatabase() const
         x->showPerson();
 }
 
-void Database::findLastName(const string& lastName_) const
+std::set<Person*> Database::find(std::function<bool(Person*)> what) const
 {
-    int lastNamecounter = 0;
-    for (auto x : data)
+    std::set<Person*> People;
+    for (auto iter = data.begin(); iter != data.end(); ++iter)
     {
-        if (x->getLastName() == lastName_)
+        auto found = std::find_if(iter, data.end(), what);
+        if (found != data.end())
+            People.insert(*found);
+    }
+    return People;
+}
+
+std::vector<Person*>::iterator Database::getIterator(const string& pesel_)
+{
+    return std::find_if(data.begin(), data.end(), [=](const Person* item) 
+    {
+        return item->getPesel() == pesel_; 
+    });
+}
+
+std::set<Person*> Database::findByLastName(const string& lastName_) const
+{
+    string temp = lastName_;
+    temp[0] = toupper(temp[0]);
+    return find([=](const Person* item)
+    {
+        return item->getLastName() == temp; 
+    });
+}
+
+std::set<Person*> Database::findByPesel(const string& pesel_) const
+{
+    return find([=](const Person* item)
+    {
+        return item->getPesel() == pesel_; 
+    });
+}
+
+std::set<Person*> Database::findByAdress(const string& adress_) const
+{
+    return find([=](const Person* item)
+    {
+        return item->getAdress() == adress_; 
+    });
+}
+
+std::set<Person*> Database::findAllStudnents() const
+{
+    {
+        return find([](const Person* item)->bool
         {
-            x->showPerson();
-            lastNamecounter++;
-        }
+            return item->getIndex() != 0;
+        });
     }
-    foundPersonResult(lastNamecounter);
 }
 
-void Database::findPesel(const string& pesel_) const
+std::set<Person*> Database::findAllEmployees() const
 {
-    int peselCounter = 0;
-    for (auto x : data)
     {
-        if (x->getPesel() == pesel_)
+        return find([](const Person* item)->bool
         {
-            x->showPerson();
-            peselCounter++;
-        }
+            return item->getIndex() == 0;
+        });
     }
-    foundPersonResult(peselCounter);
 }
 
-void Database::sortByLastName() const
+void Database::sortByLastName()
 {
-    if (data.size() > 1)
+    std::sort(data.begin(), data.end(), [](const Person* one, const Person* two) 
     {
-        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getLastName() < two->getLastName(); });
-        cout << "Status: sorting completed" << endl;
-    }
+        return one->getLastName() < two->getLastName(); 
+    });
 }
 
-void Database::sortByPesel() const
+void Database::sortByPesel()
 {
-    if (data.size() > 1)
+    std::sort(data.begin(), data.end(), [](Person* one, Person* two) 
     {
-        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getPesel() < two->getPesel(); });
-        cout << "Status: sorting completed" << endl;
-    }
+        return one->getPesel() < two->getPesel();
+    });
 }
 
-void Database::sortBySalary() const
+void Database::sortBySalary()
 {
-    if (data.size() > 1)
+    std::sort(data.begin(), data.end(), [](Person* one, Person* two) 
     {
-        std::sort(data.begin(), data.end(), [](Person* one, Person* two) {return one->getSalary() < two->getSalary(); });
-        cout << "Status: sorting completed" << endl;
-    }
+        return one->getSalary() < two->getSalary(); 
+    });
 }
 
-void Database::addToExternalFile() const
+void Database::addToExternalFile(const string& fileName) const
 {
-    if (fileOperationResult())
+    std::ofstream outFile(fileName);
+    for (auto x = data.begin(); x != data.end(); x++)
     {
-        std::ofstream outFile("DATABASE.txt", std::ios_base::out | std::ios_base::ate | std::ios_base::app);
-        for (auto x : data)
-        {
-            if (x->getIndex() == 0)
-                outFile << "Status:\t\temployee" << endl;
-            else
-                outFile << "Status:\t\tstudent" << endl;
-            outFile << "First name:\t" << x->getFirstName() << endl;
-            outFile << "Last name:\t" << x->getLastName() << endl;
-            outFile << "Pesel:\t\t" << x->getPesel() << endl;
-            outFile << "Gender:\t\t" << x->getGender() << endl;
-            outFile << "Adress:\t\t" << x->getAdress() << endl;
-            if (x->getIndex() == 0)
-                outFile << "Salary:\t\t" << x->getSalary() << "$" << endl << endl;
-            else
-                outFile << "Index:\t\t" << x->getIndex() << endl << endl;
-        }
-        outFile.close();
+        outFile << (*x)->getFirstName() << "|"
+            << (*x)->getLastName() << "|"
+            << (*x)->getPesel() << "|"
+            << (*x)->getGender() << "|"
+            << (*x)->getAdress() << "|"
+            << (*x)->getSalary() << "|"
+            << (*x)->getIndex() << "|" << endl;
     }
+    outFile.close();
 }
 
-void Database::loadFromExternalFile() const
+void Database::loadFromExternalFile(const string& fileName)
 {
+    data.clear();
+    string longLine;
+    string shortLine;
+    std::vector<string> textFromFile;
+    std::ifstream inFile(fileName);
     try
     {
-        std::string textFromFile;
-        std::ifstream inFile("DATABASE.txt");
         if (inFile.is_open())
         {
-            while (!inFile.eof())
+            while (getline(inFile, longLine))
             {
-                getline(inFile, textFromFile);
-                cout << textFromFile << std::endl;
+                std::stringstream ss(longLine);
+                while (getline(ss, shortLine, '|'))
+                {
+                    textFromFile.emplace_back(shortLine);
+                }
+                if (std::stoi(textFromFile[5]) == 0)
+                {
+                    Person* student = new Student(textFromFile[0], textFromFile[1], textFromFile[2], textFromFile[3],
+                        textFromFile[4], std::stoi(textFromFile[6]));
+                    addToDatabase(student);
+                }
+                else
+                {
+                    Person* employee = new Employee(textFromFile[0], textFromFile[1], textFromFile[2], textFromFile[3],
+                        textFromFile[4], std::stoi(textFromFile[5]));
+                    addToDatabase(employee);
+                }
+                textFromFile.clear();
             }
         }
-        else
-            throw InvalidFile();
+        else throw InvalidFile();
     }
     catch (InvalidFile& exception)
     {
@@ -229,87 +212,63 @@ void Database::loadFromExternalFile() const
     }
 }
 
-void Database::removePerson(const string& pesel_) const
+void Database::removePerson(const string& pesel_)
 {
-    bool correctPesel = false;
-    for (auto x = data.begin(); x != data.end(); x++)
+    if (getIterator(pesel_) != data.end())
     {
-        if ((*x)->getPesel() == pesel_)
-        {
-            data.erase(x);
-            correctPesel = true;
-            break;
-        }
+        data.erase(getIterator(pesel_));
     }
-    modificationResult(correctPesel, pesel_);
 }
 
-void Database::changeEmployeeSalary(const string& pesel_, const int& salary_) const
+void Database::changeEmployeeSalary(const string& pesel_, const int& salary_)
 {
-    bool correctPesel = false;
-    for (auto x = data.begin(); x != data.end(); x++)
+    if (getIterator(pesel_) != data.end())
     {
-        if ((*x)->getPesel() == pesel_ && (*x)->getIndex() == 0)
-        {
-            correctPesel = true;
-            (*x)->setSalary(salary_);
-            break;
-        }
+        (*getIterator(pesel_))->setSalary(salary_);
     }
-    modificationResult(correctPesel, pesel_);
 }
 
-void Database::changeAdress(const string & pesel_, const string & adress_) const
+void Database::changeAdress(const string & pesel_, const string & adress_)
 {
-    bool correctPesel = false;
-    for (auto x = data.begin(); x != data.end(); x++)
+    if (getIterator(pesel_) != data.end())
     {
-        if ((*x)->getPesel() == pesel_)
-        {
-            (*x)->setAdress(adress_);
-            correctPesel = true;
-            break;
-        }
+        (*getIterator(pesel_))->setAdress(adress_);
     }
-    modificationResult(correctPesel, pesel_);
 }
 
-void Database::setRandomData() 
+void Database::setRandomData()
 {
-    using namespace randomData;
-    std::array<int, 6> i;
-    int j = 0;
-    randomUniqueNumber();
-    for (auto x : number)
-    {
-        i[j] = x;
-        j++;
-    }
     clearDatabase();
     srand(time(0));
-    static Student s1(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[0]], randomGender[rand() % 2],
+    using namespace randomData;
+    randomUniqueNumber();
+    std::vector<int> i(number.begin(), number.end());
+
+    Person* s1  = new Student(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[0]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomIndex[rand() % 10]);
-    static Student s2(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[1]], randomGender[rand() % 2],
+    Person* s2 = new Student(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[1]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomIndex[rand() % 10]);
-    static Student s3(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[2]], randomGender[rand() % 2],
+    Person* s3 = new Student(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[2]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomIndex[rand() % 10]);
-    static Employee e1(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[3]], randomGender[rand() % 2],
+    Person* e1 = new Employee(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[3]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomSalary[rand() % 10]);
-    static Employee e2(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[4]], randomGender[rand() % 2],
+    Person* e2 = new Employee(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[4]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomSalary[rand() % 10]);
-    static Employee e3(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[5]], randomGender[rand() % 2],
+    Person* e3 = new Employee(randomFirstName[rand() % 10], randomLastName[rand() % 10], randomPesel[i[5]], randomGender[rand() % 2],
         randomAdress[rand() % 10], randomSalary[rand() % 10]);
 
-    addToDatabase(&s1);
-    addToDatabase(&s2);
-    addToDatabase(&s3);
-    addToDatabase(&e1);
-    addToDatabase(&e2);
-    addToDatabase(&e3);
+    addToDatabase(s1);
+    addToDatabase(s2);
+    addToDatabase(s3);
+    addToDatabase(e1);
+    addToDatabase(e2);
+    addToDatabase(e3);
 }
 
-void Database::clearDatabase() const
+void Database::clearDatabase()
 {
+    for (auto x : data)
+        delete x;
     data.clear();
 }
 
