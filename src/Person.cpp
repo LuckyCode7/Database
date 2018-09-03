@@ -1,5 +1,5 @@
-#include "Person.hpp"
-#include "Exceptions.hpp"
+#include <../inc/Person.hpp>
+#include <../inc/Exceptions.hpp>
 #include <iostream>
 #include <array>
 #include <sstream>

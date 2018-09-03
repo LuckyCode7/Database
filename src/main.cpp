@@ -1,6 +1,6 @@
-#include "Student.hpp"
-#include "Employee.hpp"
-#include "Database.hpp"
+#include <../inc/Student.hpp>
+#include <../inc/Employee.hpp>
+#include <../inc/Database.hpp>
 #include <iostream>
 #include <vector>
 
@@ -61,6 +61,5 @@ int main()
    
     database.clearDatabase();
 
-    system("PAUSE");
     return 0;
 }

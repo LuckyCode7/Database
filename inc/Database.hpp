@@ -1,7 +1,7 @@
-#include "Person.hpp"
+#include <../inc/Person.hpp>
 #include <set>
 #include <vector>
-#include<functional>
+#include <functional>
 
 class Database
 {

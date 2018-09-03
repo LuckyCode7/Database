@@ -50,6 +50,7 @@ set(SRC_LIST
     src/Employee.cpp
     src/Person.cpp
     src/Student.cpp
+    src/main.cpp
 )
 
 include_directories(src)
@@ -62,4 +63,10 @@ else (UNIX)
     target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
 endif (UNIX)
 
+set(TEST_SRC_LIST
+    test/StudentTest.cpp
+)
 
+link_libraries(gtest)
+add_executable(${PROJECT_NAME}-ut ${TEST_SRC_LIST})
+target_link_libraries(${PROJECT_NAME}-ut ${PROJECT_NAME}-lib)

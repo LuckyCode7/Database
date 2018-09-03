@@ -1,5 +1,5 @@
-#include "Employee.hpp"
-#include "Exceptions.hpp"
+#include <../inc/Employee.hpp>
+#include <../inc/Exceptions.hpp>
 #include <iostream>
 #include <limits>
 

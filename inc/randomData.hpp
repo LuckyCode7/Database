@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 #include <unordered_set>
-#include<string>
+#include <string>
 
 namespace randomData
 {

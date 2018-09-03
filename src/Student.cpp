@@ -1,5 +1,5 @@
-#include "Student.hpp"
-#include "Exceptions.hpp"
+#include <../inc/Student.hpp>
+#include <../inc/Exceptions.hpp>
 #include <iostream>
 #include <limits>
 

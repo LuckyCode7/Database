@@ -1,5 +1,5 @@
 #pragma once
-#include "Person.hpp"
+#include <../inc/Person.hpp>
 
 class Student : public Person
 {

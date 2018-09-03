@@ -1,8 +1,8 @@
-#include "Database.hpp"
-#include "Student.hpp"
-#include "Employee.hpp"
-#include "Exceptions.hpp"
-#include "randomData.hpp"
+#include <../inc/Database.hpp>
+#include <../inc/Student.hpp>
+#include <../inc/Employee.hpp>
+#include <../inc/Exceptions.hpp>
+#include <../inc/randomData.hpp>
 #include <iostream>
 #include <array>
 #include <set>
