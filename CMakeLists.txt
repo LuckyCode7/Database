@@ -37,7 +37,7 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Database)
+project(database)
 
 set(SRC_LIST
     inc/Database.hpp
@@ -65,6 +65,8 @@ endif (UNIX)
 
 set(TEST_SRC_LIST
     test/StudentTest.cpp
+    test/EmployeeTest.cpp
+    test/test_main.cpp
 )
 
 link_libraries(gtest)

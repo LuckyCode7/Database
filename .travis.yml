@@ -25,5 +25,5 @@ script:
   - cd build
   - cmake ..
   - make
-  - ./Database
-  - ./Database-ut
+  - ./database
+  - ./database-ut
