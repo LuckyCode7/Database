@@ -129,7 +129,7 @@ TEST_F(DatabaseTest, check_sortBySalary_method)
     database.addToDatabase(ula);
     database.sortBySalary();
     // THEN
-    ASSERT_EQ(database[0]->getLastName(),"Kowalska");
+    ASSERT_EQ(database[0]->getLastName(),"Tyski");
 }
 
 TEST_F(DatabaseTest, check_externalFile_methods)
@@ -143,10 +143,82 @@ TEST_F(DatabaseTest, check_externalFile_methods)
     database.addToDatabase(rafal);
     database.addToDatabase(jan);
     database.addToDatabase(ula);
-    database.addToExternalFile("../Save/DATABASE.txt");
-    database.loadFromExternalFile("../Save/DATABASE.txt");
+    database.addToExternalFile("../save/DATABASE.txt");
+    database.loadFromExternalFile("../save/DATABASE.txt");
     // THEN
     ASSERT_EQ(database.getDatabaseSize(), 3);
 }
 
+TEST_F(DatabaseTest, check_removePerson_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Employee("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 5000);
+    Person* jan = new Employee("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 3000);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 15000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.removePerson("93011397011");
+    // THEN
+    ASSERT_EQ(database.getDatabaseSize(), 2);
+}
 
+TEST_F(DatabaseTest, check_changeEmployeeSalary_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Employee("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 5000);
+    Person* jan = new Employee("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 3000);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 15000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.changeEmployeeSalary("93011397011", 7000);
+    // THEN
+    ASSERT_EQ(database[0]->getSalary(), 7000);
+}
+
+TEST_F(DatabaseTest, check_changeAdress_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Employee("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 5000);
+    Person* jan = new Employee("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 3000);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 15000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.changeAdress("93011397011", "Gdansk, 8 Finlandia");
+    // THEN
+    ASSERT_EQ(database[0]->getAdress(), "Gdansk, 8 Finlandia street");
+}
+
+TEST_F(DatabaseTest, check_setRandomData_method)
+{
+    // GIVEN
+    Database database;
+    //WHEN
+    database.setRandomData();
+    // THEN
+    ASSERT_EQ(database.getDatabaseSize(), 6);
+}
+
+TEST_F(DatabaseTest, check_clearDatabase_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Employee("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 5000);
+    Person* jan = new Employee("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 3000);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 15000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.clearDatabase();
+    // THEN
+    ASSERT_EQ(database.getDatabaseSize(), 0);
+}
