@@ -48,7 +48,7 @@ TEST_F(StudentTest, check_method_getLastName)
     Student student("Jan","Kowalksi","93011397011","man", "London, 7 Famous", 123456);
     // WHEN call getLastName method
     // THEN
-    ASSERT_EQ(student.getLastName(), "Kowalski");
+    ASSERT_EQ(student.getLastName(), "Kowalksi");
 }
 
 TEST_F(StudentTest, check_method_getFirstName)
@@ -134,6 +134,6 @@ TEST_F(StudentTest, check_method_setAdress)
     // WHEN
     student.setAdress("Warsaw, 88 Szybka");
     // THEN
-    ASSERT_EQ(student.getAdress(), "Warsaw, 88 Szybka");
+    ASSERT_EQ(student.getAdress(), "Warsaw, 88 Szybka street");
 }
 
