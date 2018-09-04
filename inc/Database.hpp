@@ -30,5 +30,6 @@ public:
     void changeEmployeeSalary(const string& pesel_, const int& salary_);
     void changeAdress(const string& pesel_, const string& adress_);
     void setRandomData();
+    Person* operator[](const int& whichPerson) const;
     void clearDatabase();
 };

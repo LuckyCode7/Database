@@ -83,3 +83,19 @@ TEST_F(DatabaseTest, check_findAllEmployees_method)
     // THEN
     ASSERT_EQ(foundEmployee.size(), 3);
 }
+
+TEST_F(DatabaseTest, check_sortByLastName_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
+    Person* jan = new Student("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 227401);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.sortByLastName();
+    // THEN
+    ASSERT_EQ(database[0]->getLastName(),"Kowalska");
+}

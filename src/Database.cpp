@@ -264,10 +264,14 @@ void Database::setRandomData()
     addToDatabase(e3);
 }
 
+Person* Database::operator[](const int& whichPerson) const
+{
+    return data[whichPerson];
+}
+
 void Database::clearDatabase()
 {
-    for (auto x : data)
-        delete x;
+    for (auto x : data) delete x;
     data.clear();
 }
 
