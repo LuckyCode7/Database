@@ -59,7 +59,27 @@ TEST_F(DatabaseTest, check_findAllStudents_method)
     database.addToDatabase(ula);
     database.addToDatabase(michal);
     database.addToDatabase(marcin);
-    auto found = database.findAllStudnents();
+    auto foundStudent = database.findAllStudnents();
     // THEN
-    ASSERT_EQ(found.size(), 3);
+    ASSERT_EQ(foundStudent.size(), 2);
+}
+
+TEST_F(DatabaseTest, check_findAllEmployees_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
+    Person* jan = new Student("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 227401);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
+    Person* michal = new Employee("michal", "szybki", "00302557202", "man", "poznan, 90 spokojna", 5500);
+    Person* marcin = new Employee("marcin", "jeziorski", "91051962012", "man", "krakow, 90 spokojna", 3000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.addToDatabase(michal);
+    database.addToDatabase(marcin);
+    auto foundEmployee = database.findAllEmployees();
+    // THEN
+    ASSERT_EQ(foundEmployee.size(), 3);
 }
