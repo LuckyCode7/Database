@@ -269,6 +269,11 @@ Person* Database::operator[](const int& whichPerson) const
     return data[whichPerson];
 }
 
+int Database::getDatabaseSize() const
+{
+    return data.size();
+}
+
 void Database::clearDatabase()
 {
     for (auto x : data) delete x;

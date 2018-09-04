@@ -99,3 +99,54 @@ TEST_F(DatabaseTest, check_sortByLastName_method)
     // THEN
     ASSERT_EQ(database[0]->getLastName(),"Kowalska");
 }
+
+TEST_F(DatabaseTest, check_sortByPesel_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
+    Person* jan = new Student("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 227401);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.sortByPesel();
+    // THEN
+    ASSERT_EQ(database[0]->getLastName(),"Tyski");
+}
+
+TEST_F(DatabaseTest, check_sortBySalary_method)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Employee("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 5000);
+    Person* jan = new Employee("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 3000);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 15000);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.sortBySalary();
+    // THEN
+    ASSERT_EQ(database[0]->getLastName(),"Kowalska");
+}
+
+TEST_F(DatabaseTest, check_externalFile_methods)
+{
+    // GIVEN
+    Database database;
+    Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
+    Person* jan = new Student("Jan", "tyski", "08260128313", "man", "warszawa, 7 cicha", 227401);
+    Person* ula = new Employee("ula", "kowalska", "44051401359", "woman", "kalisz, 4 grunwaldzka", 3500);
+    //WHEN
+    database.addToDatabase(rafal);
+    database.addToDatabase(jan);
+    database.addToDatabase(ula);
+    database.addToExternalFile("../Save/DATABASE.txt");
+    database.loadFromExternalFile("../Save/DATABASE.txt");
+    // THEN
+    ASSERT_EQ(database.getDatabaseSize(), 3);
+}
+
+
