@@ -11,7 +11,7 @@ class InvalidPesel : public std::invalid_argument
 {
     string person;
 public:
-    InvalidPesel(const string& person_)
+    explicit InvalidPesel(const string& person_)
         : invalid_argument("Invalid PESEL !")
         ,person(person_)
     {}
@@ -22,7 +22,7 @@ class InvalidGender : public std::invalid_argument
 {
     string person;
 public:
-    InvalidGender(const string& person_)
+    explicit InvalidGender(const string& person_)
         : invalid_argument("Invalid gender !")
         ,person(person_)
     {}
@@ -33,7 +33,7 @@ class InvalidFirstName : public std::invalid_argument
 {
     string person;
 public:
-    InvalidFirstName(const string& person_)
+    explicit InvalidFirstName(const string& person_)
         : invalid_argument("Incorrect length or type of first name !")
         ,person(person_)
     {}
@@ -44,7 +44,7 @@ class InvalidLastName : public std::invalid_argument
 {
     string person;
 public:
-    InvalidLastName(const string& person_)
+    explicit InvalidLastName(const string& person_)
         : invalid_argument("Incorrect length or type of last name !")
         ,person(person_)
     {}
@@ -55,7 +55,7 @@ class InvalidAdress : public std::invalid_argument
 {
     string person;
 public:
-    InvalidAdress(const string& person_)
+    explicit InvalidAdress(const string& person_)
         : invalid_argument("Incorrect adress format !")
         ,person(person_)
     {}
@@ -67,7 +67,7 @@ class InvalidIndex : public std::invalid_argument
 {
     string person;
 public:
-    InvalidIndex(const string& person_)
+    explicit InvalidIndex(const string& person_)
         : invalid_argument("Incorrect type of index !")
         ,person(person_)
     {}
@@ -79,7 +79,7 @@ class InvalidSalary : public std::invalid_argument
 {
     string person;
 public:
-    InvalidSalary(const string& person_)
+    explicit InvalidSalary(const string& person_)
         : invalid_argument("Salary can not be negative !")
         ,person(person_)
     {}

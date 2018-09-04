@@ -35,11 +35,10 @@ void Database::checkPeronalData(Person* person)
 
 void Database::randomUniqueNumber() const
 {
-    int temporaryNumber;
     srand(time(0));
     while (randomData::number.size() != 6)
     {
-        temporaryNumber = rand() % 10;
+        int temporaryNumber = rand() % 10;
         randomData::number.insert(temporaryNumber);
     }
 }
