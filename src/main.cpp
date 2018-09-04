@@ -6,7 +6,6 @@
 
 int main()
 {
-std::cout<<"JEST OKEJ"<<std::endl;
     //Database database;
 
     //Person* rafal = new Student("rafal", "nowak", "93011397011", "man", "warszawa, 15 cicha", 123457);
