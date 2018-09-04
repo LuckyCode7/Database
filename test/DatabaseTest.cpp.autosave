@@ -59,7 +59,7 @@ TEST_F(DatabaseTest, check_findAllStudents_method)
     database.addToDatabase(ula);
     database.addToDatabase(michal);
     database.addToDatabase(marcin);
-    auto found = database.findAllStudnents();
+    auto foundStudent = database.findAllStudnents();
     // THEN
     ASSERT_EQ(found.size(), 3);
 }
