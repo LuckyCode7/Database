@@ -40,16 +40,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(database)
 
 set(SRC_LIST
+    inc/Adress.hpp
     inc/Database.hpp
     inc/Employee.hpp
     inc/Exceptions.hpp
+    inc/RandomData.hpp
     inc/Person.hpp
-    inc/randomData.hpp
     inc/Student.hpp
+    inc/DataValidator.hpp
+    inc/PeselValidator.hpp 
+    inc/NameValidator.hpp
+    inc/AdressValidator.hpp
+    inc/GenderValidator.hpp
+    src/Adress.cpp
     src/Database.cpp
     src/Employee.cpp
     src/Person.cpp
     src/Student.cpp
+    src/DataValidator.cpp
+    src/PeselValidator.cpp 
+    src/NameValidator.cpp
+    src/AdressValidator.cpp
+    src/GenderValidator.cpp
     src/main.cpp
 )
 
@@ -64,6 +76,12 @@ else (UNIX)
 endif (UNIX)
 
 set(TEST_SRC_LIST
+    test/DataValidatorTest.cpp
+    test/AdressTest.cpp
+    test/AdressValidatorTest.cpp
+    test/GenderValidatorTest.cpp
+    test/NameValidatorTest.cpp
+    test/PeselValidatorTest.cpp
     test/StudentTest.cpp
     test/EmployeeTest.cpp
     test/DatabaseTest.cpp

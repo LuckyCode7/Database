@@ -1,38 +1,35 @@
 #pragma once
+#include <../inc/Adress.hpp>
 #include <string>
-
-using std::string;
 
 class Person
 {
 private:
-    string firstName;
-    string lastName;
-    string PESEL;
-    string gender;
-    string adress;
-    bool checkPesel(const string& pesel_) const;
-    bool checkName(const string& name_) const;
-    bool checkAdress(const string& adress_) const;
-    void setCorrectAdressFormat();
-    bool checkGender(const string& gender_) const;
+    std::string firstName;
+    std::string lastName;
+    std::string PESEL;
+    std::string gender;
+    Adress adress;
+    void fillInAdress() noexcept;
 public:
-    Person(const string & firstName_, const string & lastName_, const string& pesel_,
-        const string & gender_, const string & adress_);
+    Person(const std::string & firstName_, const std::string & lastName_, const std::string& pesel_,
+           const std::string & gender_, const Adress & adress_);
+    Person(const Person&) = default;
+    Person& operator=(const Person&) = default;
     virtual ~Person() {}
-    void setPesel(const string& pesel_);
-    void setGender(const string& gender_);
-    void setFirstName(const string& firstName_);
-    void setLastName(const string& lastName_);
-    void setAdress(const string& adress_);
-    string getLastName() const;
-    string getFirstName() const;
-    string getPesel() const;
-    string getGender() const;
-    string getAdress() const;
-    virtual int getSalary() const = 0;
-    virtual void setSalary(const int&) = 0;
-    virtual void setIndex(const int&) = 0;
-    virtual int getIndex() const = 0;
-    virtual void showPerson() const;
+    void setPesel(const std::string& pesel_);
+    void setGender(const std::string& gender_);
+    void setFirstName(const std::string& firstName_);
+    void setLastName(const std::string& lastName_);
+    void setAdress(const Adress &adress_);
+    std::string getLastName() const noexcept;
+    std::string getFirstName() const noexcept;
+    std::string getPesel() const noexcept;
+    std::string getGender() const noexcept;
+    Adress getAdress() const noexcept;
+    virtual int getSalary() const noexcept = 0;
+    virtual void setSalary(const int) = 0;
+    virtual void setIndex(const int) = 0;
+    virtual int getIndex() const noexcept = 0;
+    virtual void toString() const noexcept;
 };

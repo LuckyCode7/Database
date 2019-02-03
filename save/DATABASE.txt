@@ -1,5 +1,0 @@
-Rafal|Nowak|93011397011|man|Warszawa, 15 Cicha street|0|123457|
-Jan|Tyski|08260128313|man|Warszawa, 7 Cicha street|0|227401|
-Ula|Kowalska|44051401359|woman|Kalisz, 4 Grunwaldzka street|3500|0|
-Michal|Szybki|00302557202|man|Poznan, 90 Spokojna street|5500|0|
-Marcin|Nowak|91051962012|man|Krakow, 90 Spokojna street|3000|0|

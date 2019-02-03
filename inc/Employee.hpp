@@ -6,12 +6,12 @@ class Employee : public Person
 private:
     int salary;
 public:
-    Employee(const string& firstName_, const string& lastName_, const string& pesel_,
-        const string& gender_, const string& adress_, const int& salary_);
+    Employee(const std::string& firstName_, const std::string& lastName_, const std::string& pesel_,
+        const std::string& gender_, const Adress& adress_, const int salary_);
     ~Employee();
-    void setSalary(const int& salary_);
-    void showPerson() const;
-    int getSalary() const;
-    int getIndex() const;
-    void setIndex(const int& index_);
+    void setSalary(const int salary_) override;
+    void toString() const noexcept override;
+    int getSalary() const noexcept override;
+    int getIndex() const noexcept override;
+    void setIndex(const int index_) noexcept;
 };

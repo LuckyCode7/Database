@@ -3,20 +3,15 @@
 #include <iostream>
 #include <limits>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
-
-Employee::Employee(const string & firstName_, const string & lastName_, const string& pesel_,
-    const string & gender_, const string & adress_, const int & salary_)
+Employee::Employee(const std::string & firstName_, const std::string & lastName_, const std::string& pesel_,
+    const std::string & gender_, const Adress &adress_, const int salary_)
     :Person(firstName_, lastName_, pesel_, gender_, adress_)
     ,salary(salary_)
 {}
 
 Employee::~Employee() {}
 
-void Employee::setSalary(const int& salary_)
+void Employee::setSalary(const int salary_)
 {
     try
     {
@@ -26,39 +21,40 @@ void Employee::setSalary(const int& salary_)
     }
     catch (InvalidSalary& exception)
     {
-        cout << exception.what() << endl;
+        std::cout << exception.what() << std::endl;
         exception.message();
         while (salary < 0)
         {
-            cout << "Set correct salary: \a";
-            cin >> salary;
-            if (cin.fail())
+            std::cout << "Set correct salary: \a";
+            std::cin >> salary;
+            if (std::cin.fail())
             {
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 continue;
             }
         }
     }
 }
 
-void Employee::showPerson() const
+void Employee::toString() const noexcept
 {
-    cout << "Status: \temployee";
-    Person::showPerson();
-    cout << "Salary: \t" << salary << "$" << endl << endl;
+    std::cout << "Status: \temployee";
+    Person::toString();
+    std::cout << "Salary: \t" << salary << "$" << std::endl << std::endl;
 }
 
-int Employee::getSalary() const
+int Employee::getSalary() const noexcept
 {
     return salary;
 }
 
-int Employee::getIndex() const
+int Employee::getIndex() const noexcept
 {
     return 0;
 }
 
-void Employee::setIndex(const int& index_) {}
+void Employee::setIndex(const int index_) noexcept
+{}
 
 

@@ -6,31 +6,33 @@
 class Database
 {
 private:
-    void checkPeronalData(Person* person);
-    void randomUniqueNumber()const;
-    std::set<Person*> find(std::function<bool(Person*)> what) const;
-    std::vector<Person*>::iterator getIterator(const string& pesel_);
+    void checkPeronalData(Person* person) const;
+    std::set<Person*> find(std::function<bool(Person*)> predicate) const noexcept;
+    std::vector<Person*>::iterator getIterator(const std::string& pesel_) noexcept;
     std::vector<Person*> data;
 public:
-    Database();
-    ~Database();
-    bool addToDatabase(Person* person);
-    void showDatabase() const;
-    std::set<Person*> findByLastName(const string& lastName_) const;
-    std::set<Person*> findByPesel(const string& pesel_) const;
-    std::set<Person*> findByAdress(const string& adress_) const;
-    std::set<Person*> findAllStudnents() const;
-    std::set<Person*> findAllEmployees() const;
-    void sortByLastName();
-    void sortByPesel();
-    void sortBySalary();
-    void addToExternalFile(const string& fileName) const;
-    void loadFromExternalFile(const string& fileName);
-    void removePerson(const string& pesel_);
-    void changeEmployeeSalary(const string& pesel_, const int& salary_);
-    void changeAdress(const string& pesel_, const string& adress_);
-    void setRandomData();
-    int getDatabaseSize() const;
+    Database() = default;
+    Database(const Database&) = default;
+    Database& operator=(const Database&) = default;
+    Database(Database&&) = default;
+    Database& operator=(Database&&) = default;
+    ~Database() = default;
+    bool addToDatabase(Person* person) noexcept;
+    void showDatabase() const noexcept;
+    std::set<Person*> findByLastName(const std::string& lastName_) const noexcept;
+    std::set<Person*> findByPesel(const std::string& pesel_) const noexcept;
+    std::set<Person*> findByAdress(const Adress &adress_) const noexcept;
+    std::set<Person*> findAllStudnents() const noexcept;
+    std::set<Person*> findAllEmployees() const noexcept;
+    void sortByLastName() noexcept;
+    void sortByPesel() noexcept;
+    void sortBySalary() noexcept;
+    void addToExternalFile(const std::string& fileName) const noexcept;
+    void removePerson(const std::string& pesel_) noexcept;
+    void changeEmployeeSalary(const std::string& pesel_, const int& salary_);
+    void changeAdress(const std::string& pesel_, const Adress& adress_);
+    void setRandomData() noexcept;
+    int getDatabaseSize() const noexcept;
     Person* operator[](const int& whichPerson) const;
-    void clearDatabase();
+    void clearDatabase() noexcept;
 };
