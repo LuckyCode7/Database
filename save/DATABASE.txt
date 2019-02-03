@@ -1,0 +1,6 @@
+Maciek|Bystry|08260128313|man|warszawa, 7 cicha street|0|996615|
+Ula|Szybki|25040751910|woman|warszawa, 5 cicha street|0|136009|
+Marek|Podlejski|96122729307|man|wroclaw, 3 podwawelska street|0|789034|
+Darek|Michalewski|98111588700|man|wroclaw, 3 podwawelska street|10000|0|
+Maciek|Wolny|76871321706|man|gdynia, 41 lokietka street|7000|0|
+Rafal|Nowy|04231446613|man|gdynia, 41 lokietka street|9000|0|
