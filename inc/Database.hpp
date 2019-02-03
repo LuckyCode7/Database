@@ -18,7 +18,7 @@ public:
     Database& operator=(Database&&) = default;
     ~Database() = default;
     bool addToDatabase(Person* person) noexcept;
-    void showDatabase() const noexcept;
+    void toString() const noexcept;
     std::set<Person*> findByLastName(const std::string& lastName_) const noexcept;
     std::set<Person*> findByPesel(const std::string& pesel_) const noexcept;
     std::set<Person*> findByAdress(const Adress &adress_) const noexcept;

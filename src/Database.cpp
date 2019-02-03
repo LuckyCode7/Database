@@ -31,7 +31,7 @@ bool Database::addToDatabase(Person* person) noexcept
     else return false;
 }
 
-void Database::showDatabase() const noexcept
+void Database::toString() const noexcept
 {
     for (const auto& person : data)
         person->toString();
