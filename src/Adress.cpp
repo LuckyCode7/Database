@@ -18,7 +18,7 @@ void Adress::setNumberOfStreet(const int number) noexcept
     numberOfStreet = number;
 }
 
-Adress::Adress(const std::string &city_, const std::string street_, const int numberOfStreet_)
+Adress::Adress(const std::string &city_, const std::string &street_, const int numberOfStreet_)
     :city(city_)
     ,street(street_)
     ,numberOfStreet(numberOfStreet_)

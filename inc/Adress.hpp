@@ -9,7 +9,7 @@ private:
     int numberOfStreet;
 public:
     Adress() = default;
-    Adress(const std::string& city_, const std::string street_, const int numberOfStreet);
+    Adress(const std::string& city_, const std::string& street_, const int numberOfStreet);
     ~Adress() = default;
     Adress(const Adress&) = default;
     Adress& operator=(const Adress&) = default;
